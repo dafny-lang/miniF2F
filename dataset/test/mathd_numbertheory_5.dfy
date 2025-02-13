@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_numbertheory_5(n: nat)
   requires 10 <= n
   requires exists x :: x*x == n

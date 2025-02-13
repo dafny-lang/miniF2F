@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma amc12a_2009_p7(x: real, n: nat, a: nat -> real)
   requires forall m: nat :: a(m+1) - a(m) == a(m+2) - a(m+1)
   requires a(1) == 2.0*x - 3.0

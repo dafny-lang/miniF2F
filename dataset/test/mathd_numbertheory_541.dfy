@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_numbertheory_541(m: nat, n: nat)
   requires 1 < m
   requires 1 < n

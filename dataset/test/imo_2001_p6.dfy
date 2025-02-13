@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma imo_2001_p6(a: nat, b: nat, c: nat, d: nat)
   requires 0 < a
   requires 0 < b

@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma amc12b_2021_p3(x: real)
   requires (3.0 + x) != 0.0 // added
   requires (2.0 + 2.0 / (3.0 + x)) != 0.0 // added

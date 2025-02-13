@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma algebra_bleqa_apbon2msqrtableqambsqon8b(a: real, b: real)
   requires 0.0 < a
   requires 0.0 < b 

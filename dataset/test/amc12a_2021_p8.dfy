@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma amc12a_2021_p8(d: nat -> nat)
   requires d(0) == 0
   requires d(1) == 0

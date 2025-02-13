@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_362(a: real, b: real)
   requires a*a * b*b*b == 32.0/27.0
   requires a / b*b*b == 27.0/4.0

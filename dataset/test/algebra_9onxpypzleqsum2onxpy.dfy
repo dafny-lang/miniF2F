@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma algebra_9onxpypzleqsum2onxpy(x: real, y: real, z: real)
   requires 0.0 < x
   requires 0.0 < y

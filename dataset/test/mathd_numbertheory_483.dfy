@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_numbertheory_483(a: nat -> nat)
   requires a(1) == 1
   requires a(2) == 1

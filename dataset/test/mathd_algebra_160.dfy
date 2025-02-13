@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_160(n: real, x: real)
   requires n + x == 97.0
   requires n + 5.0*x == 265.0

@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma amc12_2000_p20(x: real, y: real, z: real)
   requires 0.0 < x
   requires 0.0 < y

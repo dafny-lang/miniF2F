@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_478(b: real, h: real, v: real)
   requires 0.0 < b && 0.0 < h && 0.0 < v
   requires v == 1.0 / 3.0 * (b * h)

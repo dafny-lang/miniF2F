@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_419(a: real, b: real) 
   requires a == -1.0
   requires b == 5.0

@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma amc12_2000_p1(i: nat, m: nat, o: nat)
   requires i != 0
   requires m != 0

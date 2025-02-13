@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_156(x: real, y: real, f: real -> real, g: real -> real)
   requires forall t :: f(t) == t*t*t*t
   requires forall t :: g(t) == 5.0*t*t - 6.0

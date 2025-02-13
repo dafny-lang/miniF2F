@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma numbertheory_aoddbdiv4asqpbsqmod8eq1(a: int, b: nat)
   requires a % 2 == 1
   requires b % 4 == 0
