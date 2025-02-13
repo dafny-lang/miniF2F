@@ -1,4 +1,6 @@
 module Utils {
+  /* DEFINITIONS */  
+
   function pow(b: real, k: nat): real {
     if k == 0 then
       1.0
@@ -42,6 +44,15 @@ module Utils {
 
   function {:axiom} exp(x: real): real
 
+  function {:axiom} log(x: real): real
+
+  function {:axiom} logb(b: real, x: real): real
+
+
+  /* LEMMAS */
+
+  /* Exp */
+
   lemma {:axiom} exp_neg(x: real)
     ensures exp(x) != 0.0
 
@@ -66,7 +77,7 @@ module Utils {
   lemma {:axiom} exp_eq_exp(x: real, y: real)
     ensures exp(x) == exp(y) <==> x == y
 
-  function {:axiom} log(x: real): real
+  /* Log */
 
   lemma {:axiom} log_zero()
     ensures log(0.0) == 0.0
@@ -110,7 +121,7 @@ module Utils {
     requires 0.0 < x
     ensures exp(log(x)) == x
 
-  function {:axiom} logb(b: real, x: real): real
+  /* Logb */
 
   lemma {:axiom} logb_zero(b: real)
     ensures logb(b, 0.0) == 0.0
@@ -147,4 +158,5 @@ module Utils {
 
   lemma {:axiom} logb_pow(b: real, x: real, k: nat)
     ensures logb(b, pow(x, k)) == (k as real) * logb(b, x)
+
 }
