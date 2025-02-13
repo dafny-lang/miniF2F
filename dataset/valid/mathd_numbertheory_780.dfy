@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_numbertheory_780(m: nat, x: nat)
   requires 10 <= m <= 99
   requires (6 * x) % m == 1

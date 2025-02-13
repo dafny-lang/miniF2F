@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_11(a: real, b: real)
   requires a != b
   requires a != 2.0*b

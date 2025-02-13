@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_482(m: nat, n: nat, k: real, f: real -> real)
   requires prime(m)
   requires prime(n)

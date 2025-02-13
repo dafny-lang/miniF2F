@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_421(a: real, b: real, c: real, d: real)
   requires b == a*a + 4.0 * a + 6.0
   requires b == 1.0 / 2.0 * a*a + a + 6.0

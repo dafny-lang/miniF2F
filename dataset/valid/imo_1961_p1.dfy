@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma imo_1961_p1(x: real, y: real, z: real, a: real, b: real)
   requires 0.0 < x
   requires 0.0 < y

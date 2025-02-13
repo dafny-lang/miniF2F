@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_43(a: real, b: real, f: real -> real)
   requires forall x :: f(x) == a*x + b
   requires f(7.0) == 4.0

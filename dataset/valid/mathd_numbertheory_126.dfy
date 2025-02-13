@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 // issue with bracketing
 lemma mathd_numbertheory_126(x: nat, a: nat)
   requires 0 < x 

@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_numbertheory_202()
-  ensures power(19, 19) + power(99, 99) % 10 == 8
+  ensures Int.pow(19, 19) + Int.pow(99, 99) % 10 == 8
 {}

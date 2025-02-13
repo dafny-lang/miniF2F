@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_140(a: real, b: real, c: real)
   requires 0.0 < a 
   requires 0.0 < b

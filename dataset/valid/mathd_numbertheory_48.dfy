@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_numbertheory_48(b: nat)
   requires 0 < b
   requires 3*b*b + 2*b + 1 == 57

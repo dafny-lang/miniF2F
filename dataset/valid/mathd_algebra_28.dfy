@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_28(c: real, f: real -> real)
   requires forall x :: f(x) == 2.0*x*x + 5.0*x + c
   requires exists x :: f(x) <= 0.0

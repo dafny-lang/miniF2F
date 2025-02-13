@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma imo_1977_p5(a: nat, b: nat, q: nat, r: nat)
   requires r < a + b
   requires a*a + b*b == (a+b)*q + r

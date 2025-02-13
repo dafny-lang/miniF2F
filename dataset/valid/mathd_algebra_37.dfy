@@ -1,7 +1,5 @@
 include "../utils.dfy"
 
-import opened Utils
-
 lemma mathd_algebra_37(x: real, y: real)
   requires x + y == 7.0
   requires 3.0*x + y == 45.0
