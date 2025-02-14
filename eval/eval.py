@@ -37,15 +37,16 @@ def evaluate(type: str, model: str) -> None:
   if type == "test":
     folder_path = Path(TEST_FOLDER_PATH)
   results = []
-  results_file_path = Path(f"{RESULTS_PATH}/{model}/results.json")
+  results_file_path = Path(f"{RESULTS_PATH}/{model}/{type}/results.json")
   # Loop over every file in folder_path
   for incomplete_dafny_file in folder_path.iterdir():
     if incomplete_dafny_file.is_file():
       # Create traces folder and copy utils file into it
-      traces_utils_path = f"traces/{model}"
-      traces_results_path = f"traces/{model}/{type}"
-      os.makedirs(traces_results_path, exist_ok=True)
-      shutil.copy2(UTILS_FILE_PATH, traces_utils_path)
+      if model != "dafny":
+        traces_utils_path = f"traces/{model}"
+        traces_results_path = f"traces/{model}/{type}"
+        os.makedirs(traces_results_path, exist_ok=True)
+        shutil.copy2(UTILS_FILE_PATH, traces_utils_path)
       # Remove {} on last line of problem file
       incomplete_dafny_file_path = f"{folder_path}/{incomplete_dafny_file.name}"
       with open(incomplete_dafny_file_path, 'r') as file:
@@ -60,6 +61,7 @@ def evaluate(type: str, model: str) -> None:
         # Empty completion
         if model == "dafny":
           completion = "{}"
+          i = N
         # Sonnet completion
         if model == "sonnet":
           if i == 0:
@@ -67,7 +69,6 @@ def evaluate(type: str, model: str) -> None:
           else:
             completion = call_bedrock(incomplete_dafny_file_content, SONNET_MODEL_ID)
             time.sleep(7) # sleep to avoid throttling exception
-            print("sleeping")
         # Llama completion
         if model == "llama":
           if i == 0:
@@ -76,28 +77,37 @@ def evaluate(type: str, model: str) -> None:
             completion =  call_bedrock(incomplete_dafny_file_content, LLAMA_MODEL_ID)
         # Add completion
         complete_dafny_file_content = incomplete_dafny_file_content + str(completion)
-        print(complete_dafny_file_content)
         # Write completed file
-        complete_dafny_file_path = traces_results_path + f"/{incomplete_dafny_file.stem}_{i}.dfy"
-        with open(complete_dafny_file_path, "w") as f:
-            f.write(complete_dafny_file_content)
-        s0 = subprocess.run(
-            [DAFNY_PATH, "format", complete_dafny_file_path],
-            shell=False,
-            capture_output=False,
-            timeout=15,
-        )
+        if model != "dafny":
+          complete_dafny_file_path = traces_results_path + f"/{incomplete_dafny_file.stem}_{i}.dfy"
+          with open(complete_dafny_file_path, "w") as f:
+              f.write(complete_dafny_file_content)
+          s0 = subprocess.run(
+              [DAFNY_PATH, "format", complete_dafny_file_path],
+              shell=False,
+              capture_output=False,
+              timeout=15,
+          )
         # Verify completed file
-        _, verified = verify_dafny_file(complete_dafny_file_path)
+        if model == "dafny":
+          _, verified = verify_dafny_file(incomplete_dafny_file_path)
+        else:
+          _, verified = verify_dafny_file(complete_dafny_file_path)
         # Add positive verification result
         if verified:
-          results.append(create_test_result(incomplete_dafny_file_path, f"verified at iteration {i+1}"))
+          if model == "dafny":
+            results.append(create_test_result(incomplete_dafny_file_path, "verified"))
+          else:
+            results.append(create_test_result(incomplete_dafny_file_path, f"verified at iteration {i+1}"))
           write_test_results(results, results_file_path)
         # Increase counter
         i += 1
       # Add negative verification result
       if not verified:
-        results.append(create_test_result(incomplete_dafny_file_path, f"failed after {N} iterations"))
+        if model == "dafny":
+          results.append(create_test_result(incomplete_dafny_file_path, "failed"))
+        else: 
+          results.append(create_test_result(incomplete_dafny_file_path, f"failed after {N} iterations"))
       write_test_results(results, results_file_path)
 
 
@@ -177,7 +187,7 @@ def verify_dafny_file(file, silent=False):
         return "Timed out after 15 seconds", False
     
 def main() -> None:
-  evaluate("valid", "llama")
+  evaluate("valid", "dafny")
 
 if __name__ == "__main__":
     main()
