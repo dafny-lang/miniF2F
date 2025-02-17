@@ -2,19 +2,13 @@
 
 module Real {
   function pow(b: real, k: nat): real {
-    if k == 0 then
-      1.0
-    else
-      b * pow(b, k - 1)
+    if k == 0 then 1.0 else b * pow(b, k - 1)
   }
 }
 
 module Int {
   function pow(b: int, k: nat): int {
-    if k == 0 then
-      1
-    else
-      b * pow(b, k - 1)
+    if k == 0 then 1 else b * pow(b, k - 1)
   }
 }
 
@@ -31,10 +25,7 @@ function abs(x: real): real {
 }
 
 function factorial(n: nat): nat {
-  if n == 0 then
-    1
-  else
-    n * factorial(n-1)
+  if n == 0 then 1 else n * factorial(n-1)
 }
 
 predicate prime(n: int) {
@@ -61,6 +52,11 @@ function {:axiom} log(x: real): real
 
 function {:axiom} logb(b: real, x: real): real
 
+function {:axiom} cos(x: real): real
+
+function {:axiom} sin(x: real): real
+
+const {:axiom} pi: real
 
 /* LEMMAS */
 
@@ -114,13 +110,9 @@ lemma {:axiom} log_div(x: real, y: real)
   requires y != 0.0
   ensures log(x/y) == log(x) - log(y)
 
-lemma log_inv(x: real)
+lemma {:axiom} log_inv(x: real)
   requires x != 0.0
   ensures log(1.0/x) == -log(x)
-{
-  log_div(1.0, x);
-  log_one();
-}
 
 lemma {:axiom} log_nonneg(x: real)
   requires 1.0 <= x
@@ -161,13 +153,97 @@ lemma {:axiom} logb_div(b: real, x: real, y: real)
   requires y != 0.0
   ensures logb(b, x/y) == logb(b, x) - logb(b, y)
 
-lemma logb_inv(b: real, x: real)
+lemma {:axiom} logb_inv(b: real, x: real)
   requires x != 0.0
   ensures logb(b, 1.0/x) == -logb(b, x)
-{
-  logb_div(b, 1.0, x);
-  logb_one(b);
-}
 
 lemma {:axiom} logb_pow(b: real, x: real, k: nat)
   ensures logb(b, Real.pow(x, k)) == (k as real) * logb(b, x)
+
+/* Cos and sin */
+
+lemma {:axiom} cos_zero()
+  ensures cos(0.0) == 1.0
+
+lemma {:axiom} sin_zero()
+  ensures sin(0.0) == 0.0
+
+lemma {:axiom} cos_neg(x: real)
+  ensures cos(-x) == cos(x)
+
+lemma {:axiom} cos_abs(x: real)
+  ensures cos(abs(x)) == cos(x)
+
+lemma {:axiom} cos_add(x: real, y: real)
+  ensures cos(x+y) == cos(x)*cos(y) - sin(x)*sin(y)
+
+lemma {:axiom} cos_sub(x: real, y: real)
+  ensures cos(x-y) == cos(x)*cos(y) + sin(x)*sin(y)
+
+lemma {:axiom} sin_add(x: real, y: real)
+  ensures sin(x+y) == sin(x)*cos(y) + cos(x)*sin(y)
+
+lemma {:axiom} sin_sub(x: real, y: real)
+  ensures sin(x-y) == sin(x)*cos(y) - cos(x)*sin(y)
+
+lemma {:axiom} neg_one_le_cos(x: real)
+  ensures -1.0 <= cos(x)
+
+lemma {:axiom} neg_one_le_sin(x: real)
+  ensures -1.0 <= sin(x)
+
+lemma {:axiom} cos_le_one(x: real)
+  ensures x <= 1.0
+
+lemma {:axiom} sin_le_one(x: real)
+  ensures sin(x) <= 1.0
+
+/* Pi */
+
+lemma {:axiom} cos_pi_div_two()
+  ensures cos(pi/2.0) == 0.0
+
+lemma {:axiom} sin_pi()
+  ensures sin(pi) == 0.0
+
+lemma {:axiom} cos_pi()
+  ensures cos(pi) == -1.0
+
+lemma {:axiom} sin_two_pi()
+  ensures sin(2.0*pi) == 0.0
+
+lemma {:axiom} cos_two_pi()
+  ensures cos(2.0*pi) == 1.0
+
+lemma {:axiom} sin_add_pi(x: real)
+  ensures sin(x + pi) == -sin(x)
+
+lemma {:axiom} sin_add_two_pi(x: real)
+  ensures sin(x + 2.0*pi) == sin(x)
+
+lemma {:axiom} sin_sub_pi(x: real)
+  ensures sin(x - pi) == -sin(x)
+
+lemma {:axiom} sin_sub_two_pi(x: real)
+  ensures sin(x - 2.0*pi) == sin(x)
+
+lemma {:axiom} cos_add_pi(x: real)
+  ensures cos(x + pi) == -cos(x)
+
+lemma {:axiom} cos_add_two_pi(x: real)
+  ensures cos(x + 2.0*pi) == cos(x)
+
+lemma {:axiom} cos_sub_pi(x: real)
+  ensures cos(x - pi) == -cos(x)
+
+lemma {:axiom} cos_sub_two_pi(x: real)
+  ensures cos(x - 2.0*pi) == cos(x)
+
+lemma {:axiom} one_le_pi_div_two()
+  ensures 1.0 <= pi/2.0
+
+lemma {:axiom} pi_div_two_le_two()
+  ensures pi/2.0 <= 2.0
+
+lemma {:axiom} pi_ne_zero()
+  ensures pi != 0.0
