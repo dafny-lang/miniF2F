@@ -56,6 +56,8 @@ function {:axiom} cos(x: real): real
 
 function {:axiom} sin(x: real): real
 
+function {:axiom} tan(x: real): real
+
 const {:axiom} pi: real
 
 /* LEMMAS */
