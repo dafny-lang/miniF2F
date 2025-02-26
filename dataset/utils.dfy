@@ -52,7 +52,8 @@ function {:axiom} lcm(x: nat, y: nat): (lcm: nat)
 
 function {:axiom} exp(x: real): real
 
-function {:axiom} log(x: real): real
+function {:axiom} log(x: real): (l: real)
+  ensures l == 0.0 <==> x == 1.0
 
 function {:axiom} logb(b: real, x: real): real
 
