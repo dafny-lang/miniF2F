@@ -1,13 +1,17 @@
 /* DEFINITIONS */  
 
 module Real {
-  function pow(b: real, k: nat): real {
+  function pow(b: real, k: nat): (p: real) 
+      ensures b >= 0.0 ==> p >= 0.0
+  {
     if k == 0 then 1.0 else b * pow(b, k - 1)
   }
 }
 
 module Int {
-  function pow(b: int, k: nat): int {
+  function pow(b: int, k: nat): (p: int) 
+    ensures b >= 0 ==> p >= 0
+  {
     if k == 0 then 1 else b * pow(b, k - 1)
   }
 }
