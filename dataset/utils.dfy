@@ -64,17 +64,23 @@ module Complex {
   function {:axiom} norm_sq(z: complex): (r: real)
     ensures r == z.re * z.re + z.im * z.im
     ensures r == 0.0 <==> z == zero
+
+  function {:axiom} sqrt(x: real): (y: real)
+    requires x >= 0.0
+    ensures y >= 0.0
+    ensures y * y == x
+
+  function abs(z: complex): (r: real) 
+    ensures r == sqrt(z.re * z.re + z.im * z.im)
+  {
+    sqrt(z.re * z.re + z.im * z.im)
+  } 
 }
 
 import opened Real
 import opened Int
 import opened Complex
 
-
-function {:axiom} sqrt(x: real): (y: real)
-  requires x >= 0.0
-  ensures y >= 0.0
-  ensures y * y == x
 
 function abs(x: real): real {
   if x >= 0.0 then x else -x
