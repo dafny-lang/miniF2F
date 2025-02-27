@@ -16,8 +16,60 @@ module Int {
   }
 }
 
+module Complex {
+  datatype complex = Complex(re: real, im: real)
+
+  function of_real(r: real): (z: complex)
+    ensures z.re == r
+    ensures z.im == 0.0
+  {
+    Complex(r, 0.0)
+  }
+
+  const zero := of_real(0.0)
+  const one := of_real(1.0)
+  const I := Complex(0.0, 1.0)
+
+  function add(z: complex, w: complex): (u: complex) 
+    ensures u.re == z.re + w.re
+    ensures u.im == z.im + w.im
+  {
+    Complex(z.re + w.re, z.im + w.im)
+  }
+
+  function sub(z: complex, w: complex): (u: complex)
+    ensures u.re == z.re - w.re
+    ensures u.im == z.im - w.im
+  {
+    Complex(z.re - w.re, z.im - w.im)
+  }
+
+  function mul(z: complex, w: complex): (u: complex) 
+    ensures u.re == z.re * w.re - z.im * w.im
+    ensures u.im == z.re * w.im + z.im * w.re
+  {
+    Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re)
+  }
+
+  function div(z: complex, w: complex): (u: complex)
+    requires w != zero
+  {
+    Complex(z.re * w.re / norm_sq(w) + z.im * w.im / norm_sq(w), z.im * w.re / norm_sq(w) - z.re * w.im / norm_sq(w))
+  }
+
+  function pow(b: complex, k: nat): (p: complex) {
+    if k == 0 then one else mul(b, pow(b, k - 1))
+  }
+
+  function {:axiom} norm_sq(z: complex): (r: real)
+    ensures r == z.re * z.re + z.im * z.im
+    ensures r == 0.0 <==> z == zero
+}
+
 import opened Real
 import opened Int
+import opened Complex
+
 
 function {:axiom} sqrt(x: real): (y: real)
   requires x >= 0.0
