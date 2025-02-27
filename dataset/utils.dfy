@@ -19,10 +19,7 @@ module Int {
 module Complex {
   datatype complex = Complex(re: real, im: real)
 
-  function of_real(r: real): (z: complex)
-    ensures z.re == r
-    ensures z.im == 0.0
-  {
+  function of_real(r: real): (z: complex) {
     Complex(r, 0.0)
   }
 
@@ -30,24 +27,15 @@ module Complex {
   const one := of_real(1.0)
   const I := Complex(0.0, 1.0)
 
-  function add(z: complex, w: complex): (u: complex) 
-    ensures u.re == z.re + w.re
-    ensures u.im == z.im + w.im
-  {
+  function add(z: complex, w: complex): (u: complex) {
     Complex(z.re + w.re, z.im + w.im)
   }
 
-  function sub(z: complex, w: complex): (u: complex)
-    ensures u.re == z.re - w.re
-    ensures u.im == z.im - w.im
-  {
+  function sub(z: complex, w: complex): (u: complex) {
     Complex(z.re - w.re, z.im - w.im)
   }
 
-  function mul(z: complex, w: complex): (u: complex) 
-    ensures u.re == z.re * w.re - z.im * w.im
-    ensures u.im == z.re * w.im + z.im * w.re
-  {
+  function mul(z: complex, w: complex): (u: complex) {
     Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re)
   }
 
@@ -70,9 +58,7 @@ module Complex {
     ensures y >= 0.0
     ensures y * y == x
 
-  function abs(z: complex): (r: real) 
-    ensures r == sqrt(z.re * z.re + z.im * z.im)
-  {
+  function abs(z: complex): (r: real) {
     sqrt(z.re * z.re + z.im * z.im)
   } 
 }
