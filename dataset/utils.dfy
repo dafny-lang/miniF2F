@@ -1,55 +1,45 @@
 /* DEFINITIONS */  
 
-module Real {
-  function pow(b: real, k: nat): (p: real) 
-    ensures b >= 0.0 ==> p >= 0.0
-  {
-    if k == 0 then 1.0 else b * pow(b, k - 1)
-  }
-
-  function {:axiom} rpow(x: real, y: real): (p: real)
+module Int {
+  function {:axiom} pow(b: int, k: nat): (p: int) 
+    ensures b >= 0 ==> p >= 0
+    ensures if k == 0 then p == 1 else p == b * pow(b, k - 1)
 }
 
-module Int {
-  function pow(b: int, k: nat): (p: int) 
-    ensures b >= 0 ==> p >= 0
-  {
-    if k == 0 then 1 else b * pow(b, k - 1)
-  }
+module Real {
+  function {:axiom} pow(b: real, k: nat): (p: real) 
+    ensures b >= 0.0 ==> p >= 0.0
+    ensures if k == 0 then p == 1.0 else p == b * pow(b, k - 1)
+    ensures p == rpow(b, k as real)
+
+  function {:axiom} rpow(x: real, y: real): (p: real)
 }
 
 module Complex {
   datatype complex = Complex(re: real, im: real)
 
-  function of_real(r: real): (z: complex) {
-    Complex(r, 0.0)
-  }
+  function {:axiom} of_real(r: real): (z: complex) 
+    ensures z == Complex(r, 0.0)
 
   const zero := of_real(0.0)
   const one := of_real(1.0)
   const I := Complex(0.0, 1.0)
 
-  function add(z: complex, w: complex): (u: complex) {
-    Complex(z.re + w.re, z.im + w.im)
-  }
+  function {:axiom} add(z: complex, w: complex): (u: complex) 
+    ensures u == Complex(z.re + w.re, z.im + w.im)
 
-  function sub(z: complex, w: complex): (u: complex) {
-    Complex(z.re - w.re, z.im - w.im)
-  }
+  function {:axiom} sub(z: complex, w: complex): (u: complex) 
+    ensures u == Complex(z.re - w.re, z.im - w.im)
 
-  function mul(z: complex, w: complex): (u: complex) {
-    Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re)
-  }
+  function {:axiom} mul(z: complex, w: complex): (u: complex) 
+    ensures u == Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re)
 
-  function div(z: complex, w: complex): (u: complex)
+  function {:axiom} div(z: complex, w: complex): (u: complex)
     requires w != zero
-  {
-    Complex(z.re * w.re / norm_sq(w) + z.im * w.im / norm_sq(w), z.im * w.re / norm_sq(w) - z.re * w.im / norm_sq(w))
-  }
+    ensures u == Complex(z.re * w.re / norm_sq(w) + z.im * w.im / norm_sq(w), z.im * w.re / norm_sq(w) - z.re * w.im / norm_sq(w))
 
-  function pow(b: complex, k: nat): (p: complex) {
-    if k == 0 then one else mul(b, pow(b, k - 1))
-  }
+  function {:axiom} pow(b: complex, k: nat): (p: complex) 
+    ensures if k == 0 then p == one else p == mul(b, pow(b, k - 1))
 
   function {:axiom} norm_sq(z: complex): (r: real)
     ensures r == z.re * z.re + z.im * z.im
@@ -60,14 +50,22 @@ module Complex {
     ensures y >= 0.0
     ensures y * y == x
 
-  function abs(z: complex): (r: real) {
-    sqrt(z.re * z.re + z.im * z.im)
-  } 
+  function {:axiom} abs(z: complex): (r: real) 
+    ensures r == sqrt(z.re * z.re + z.im * z.im)
+}
+
+module Finset {
+  function {:axiom} icc<T>(s: set<T>, t: set<T>): (r: set<set<T>>)
+    ensures r == set x | s <= x <= t
+
+  function {:axiom} filter<T>(s: set<T>, p: T -> bool): (r: set<T>)
+    ensures r == set x | x in s && p(x)
 }
 
 import opened Real
 import opened Int
 import opened Complex
+import opened Finset
 
 function {:axiom} floor(x: real): (m: int)
   ensures m as real <= x < (m+1) as real
@@ -77,17 +75,14 @@ function {:axiom} ceil(x: real): (m: int)
 
 predicate {:axiom} irrational(x: real)
 
-function abs(x: real): real {
-  if x >= 0.0 then x else -x
-}
+function {:axiom} abs(x: real): (r: real)
+  ensures if x >= 0.0 then r == x else r == -x
 
-function factorial(n: nat): nat {
-  if n == 0 then 1 else n * factorial(n-1)
-}
+function {:axiom} factorial(n: nat): (r: nat) 
+  ensures if n == 0 then r == 1 else r == n * factorial(n-1)
 
-predicate prime(n: int) {
-  2 <= n && forall m | 2 <= m < n :: n % m != 0
-}
+predicate {:axiom} prime(n: int) 
+  ensures prime(n) <==> 2 <= n && forall m | 2 <= m < n :: n % m != 0
 
 function {:axiom} gcd(x: nat, y: nat): (gcd: nat)
   requires x > 0 || y > 0
@@ -184,8 +179,6 @@ lemma {:axiom} exp_log(x: real)
   ensures exp(log(x)) == x
 
 /* Logb */
-
-
 
 lemma {:axiom} logb_neg_eq_logb(b: real, x: real)
   ensures logb(b, -x) == logb(b, x)
