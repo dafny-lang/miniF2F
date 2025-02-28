@@ -2,10 +2,12 @@
 
 module Real {
   function pow(b: real, k: nat): (p: real) 
-      ensures b >= 0.0 ==> p >= 0.0
+    ensures b >= 0.0 ==> p >= 0.0
   {
     if k == 0 then 1.0 else b * pow(b, k - 1)
   }
+
+  function {:axiom} rpow(x: real, y: real): (p: real)
 }
 
 module Int {
@@ -67,6 +69,13 @@ import opened Real
 import opened Int
 import opened Complex
 
+function {:axiom} floor(x: real): (m: int)
+  ensures m as real <= x < (m+1) as real
+
+function {:axiom} ceil(x: real): (m: int)
+  ensures (m-1) as real < x <= m as real
+
+predicate {:axiom} irrational(x: real)
 
 function abs(x: real): real {
   if x >= 0.0 then x else -x
@@ -94,12 +103,21 @@ function {:axiom} lcm(x: nat, y: nat): (lcm: nat)
   ensures lcm % y == 0
   ensures forall p: nat | p > 0 && p % x == 0 && p % y == 0 :: lcm <= p
 
-function {:axiom} exp(x: real): real
+function {:axiom} exp(x: real): (e: real)
+  ensures e != 0.0
+  ensures x == 0.0 ==> e == 1.0
 
 function {:axiom} log(x: real): (l: real)
-  ensures l == 0.0 <==> x == 1.0
+  ensures x > 1.0 ==> l > 0.0
+  ensures x == 1.0 ==> l == 0.0
+  ensures 0.0 < x < 1.0 ==> l < 0.0
+  ensures x == 0.0 ==> l == 0.0
 
-function {:axiom} logb(b: real, x: real): real
+function {:axiom} logb(b: real, x: real): (l: real)
+  ensures x == 0.0 ==> l == 0.0
+  ensures x == 1.0 ==> l == 0.0
+  ensures b == 0.0 ==> l == 0.0
+  ensures b == 1.0 ==> l == 0.0
 
 function {:axiom} cos(x: real): real
 
@@ -112,12 +130,6 @@ const {:axiom} pi: real
 /* LEMMAS */
 
 /* Exp */
-
-lemma {:axiom} exp_neg(x: real)
-  ensures exp(x) != 0.0
-
-lemma {:axiom} exp_zero()
-  ensures exp(0.0) == 1.0
 
 lemma {:axiom} exp_add(x: real, y: real)
   ensures exp(x+y) == exp(x) * exp(y)
@@ -138,12 +150,6 @@ lemma {:axiom} exp_eq_exp(x: real, y: real)
   ensures exp(x) == exp(y) <==> x == y
 
 /* Log */
-
-lemma {:axiom} log_zero()
-  ensures log(0.0) == 0.0
-
-lemma {:axiom} log_one()
-  ensures log(1.0) == 0.0
 
 lemma {:axiom} log_abs(x: real)
   ensures log(abs(x)) == log(x)
@@ -179,17 +185,7 @@ lemma {:axiom} exp_log(x: real)
 
 /* Logb */
 
-lemma {:axiom} logb_zero(b: real)
-  ensures logb(b, 0.0) == 0.0
 
-lemma {:axiom} logb_one(b: real)
-  ensures logb(b, 1.0) == 0.0
-
-lemma {:axiom} logb_zero_left(x: real)
-  ensures logb(0.0, x) == 0.0
-
-lemma {:axiom} logb_one_left(x: real)
-  ensures logb(1.0, x) == 0.0
 
 lemma {:axiom} logb_neg_eq_logb(b: real, x: real)
   ensures logb(b, -x) == logb(b, x)
