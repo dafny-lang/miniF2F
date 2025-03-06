@@ -6,6 +6,29 @@ module Int {
     ensures if k == 0 then p == 1 else p == b * pow(b, k - 1)
 }
 
+module Rat {
+  type PosInt = n: int | n >= 1 witness 1
+
+  datatype rat = Rational(num: int, denom: PosInt) {
+    function {:axiom} to_real(): (r: real)
+      ensures r == this.num as real / this.denom as real
+  }
+
+  predicate {:axiom} eq(lhs: rat, rhs: rat) 
+    ensures eq(lhs, rhs) <==> lhs.num * rhs.denom == rhs.num * lhs.denom
+
+  function {:axiom} add(lhs: rat, rhs: rat): (r: rat)
+    ensures r == Rational(lhs.num * rhs.denom + rhs.num * lhs.denom, lhs.denom * rhs.denom)
+
+  function mul(lhs: rat, rhs: rat): (r: rat)
+    ensures r == Rational(lhs.num * rhs.num, lhs.denom * rhs.denom)
+  
+  function {:axiom} of_int(n: int): (r: rat)
+    ensures r == Rational(n, 1)
+
+
+}
+
 module Real {
   function {:axiom} pow(b: real, k: nat): (p: real) 
     ensures b >= 0.0 ==> p >= 0.0
@@ -69,6 +92,7 @@ module Finset {
 
 import opened Real
 import opened Int
+import opened Rat
 import opened Complex
 import opened Finset
 
