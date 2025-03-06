@@ -681,7 +681,7 @@
     },
     {
         "id": "dataset/valid/imo_1988_p6.dfy",
-        "result": "verified"
+        "result": "failed"
     },
     {
         "id": "dataset/valid/amc12_2001_p9.dfy",

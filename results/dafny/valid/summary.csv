@@ -1,10 +1,10 @@
-bucket,# lemmas,# lemmas verified with empty proof,% lemmas verified with empty proof
-/amc,30,12,40.0
-/aime,8,4,50.0
-/imo,16,2,12.5
-/mathd_algebra,64,41,64.0625
-/mathd_numbertheory,37,27,72.97297297297297
-/induction,5,0,0.0
-/algebra,12,5,41.66666666666667
-/numbertheory,4,0,0.0
-total,176,91,51.70454545454546
+category,# lemmas,# lemmas verified with empty proof,% lemmas verified with empty proof
+/amc,30 (45),12,40.0 (26.666666666666668)
+/aime,8 (15),4,50.0 (26.666666666666668)
+/imo,16 (20),1,6.25 (5.0)
+/mathd_algebra,64 (70),41,64.0625 (58.57142857142858)
+/mathd_numbertheory,37 (60),27,72.97297297297297 (45.0)
+/induction,5 (8),0,0.0 (0.0)
+/algebra,12 (18),5,41.66666666666667 (27.77777777777778)
+/numbertheory,4 (8),0,0.0 (0.0)
+total,176 (244),90,51.13636363636363 (36.885245901639344)

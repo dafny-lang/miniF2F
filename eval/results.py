@@ -188,6 +188,7 @@ def verify_dafny_file(file, silent=False):
     
 def main() -> None:
   evaluate("test", "dafny")
+  evaluate("valid", "dafny")
 
 if __name__ == "__main__":
   main()

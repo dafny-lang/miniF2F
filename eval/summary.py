@@ -14,7 +14,41 @@ categories = [
     "/numbertheory"
 ]
 
-def write_summary(results_path, summary_path):
+# Number of problems in each category for test folder
+category_full_counts_test = {
+    "/amc": 45,
+    "/aime": 15,
+    "/imo": 20,
+    "/mathd_algebra": 70,
+    "/mathd_numbertheory": 60,
+    "/induction": 8,
+    "/algebra": 18,
+    "/numbertheory": 8
+}
+
+# Number of problems in each category for valid folder
+category_full_counts_valid = {
+    "/amc": 45,
+    "/aime": 15,
+    "/imo": 20,
+    "/mathd_algebra": 70,
+    "/mathd_numbertheory": 60,
+    "/induction": 8,
+    "/algebra": 18,
+    "/numbertheory": 8
+}
+
+def write_summary(folder):
+    # Set results path
+    if folder == 'test':
+        results_path = 'results/dafny/test/results.json'
+        summary_path = 'results/dafny/test/summary.csv'
+        category_full_counts = category_full_counts_test
+    else:
+        results_path = 'results/dafny/valid/results.json'
+        summary_path = 'results/dafny/valid/summary.csv'
+        category_full_counts = category_full_counts_valid
+
     # Initialize dictionary to store counts
     category_verified_counts = defaultdict(int)
     category_counts = defaultdict(int)
@@ -42,17 +76,21 @@ def write_summary(results_path, summary_path):
             writer = csv.writer(csv_file)
             
             # Write header
-            writer.writerow(['bucket', '# lemmas', '# lemmas verified with empty proof', "% lemmas verified with empty proof"])
+            writer.writerow(['category', '# lemmas', '# lemmas verified with empty proof', "% lemmas verified with empty proof"])
             
             total_lemmas = 0
             total_verified_lemmas = 0
             # Write counts for each category
             for category in categories:
-                writer.writerow([category, category_counts[category], category_verified_counts[category], category_verified_counts[category]/category_counts[category]*100])
+                category_verified_counts_percentage = category_verified_counts[category]/category_counts[category]*100
+                category_full_verified_counts_percentage = category_verified_counts[category]/category_full_counts[category]*100
+                writer.writerow([category, f'{category_counts[category]} ({category_full_counts[category]})', category_verified_counts[category], f'{category_verified_counts_percentage} ({category_full_verified_counts_percentage})'])
                 total_lemmas += category_counts[category]
                 total_verified_lemmas += category_verified_counts[category]
             
-            writer.writerow(['total', total_lemmas, total_verified_lemmas, total_verified_lemmas/total_lemmas*100])
+            total_verified_lemmas_percentage = total_verified_lemmas/total_lemmas*100
+            total_full_verified_lemmas_percentage = total_verified_lemmas/244*100
+            writer.writerow(['total', f'{total_lemmas} (244)', total_verified_lemmas, f'{total_verified_lemmas_percentage} ({total_full_verified_lemmas_percentage})'])
 
         print("CSV file has been created successfully!")
 
@@ -64,8 +102,8 @@ def write_summary(results_path, summary_path):
         print(f"An error occurred: {str(e)}")
 
 def main() -> None:
-  write_summary('results/dafny/test/results.json', 'results/dafny/test/summary.csv')
-  write_summary('results/dafny/valid/results.json', 'results/dafny/valid/summary.csv')
+  write_summary('test')
+  write_summary('valid')
 
 if __name__ == "__main__":
   main()
