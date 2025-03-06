@@ -21,9 +21,14 @@ module Complex {
   function {:axiom} of_real(r: real): (z: complex) 
     ensures z == Complex(r, 0.0)
 
-  const zero := of_real(0.0)
-  const one := of_real(1.0)
-  const I := Complex(0.0, 1.0)
+  function {:axiom} zero(): complex
+    ensures zero() == of_real(0.0)
+
+  function {:axiom} one(): complex
+    ensures one() == of_real(1.0)
+
+  function {:axiom} i(): complex
+    ensures i() == Complex(0.0, 1.0)
 
   function {:axiom} add(z: complex, w: complex): (u: complex) 
     ensures u == Complex(z.re + w.re, z.im + w.im)
@@ -35,15 +40,15 @@ module Complex {
     ensures u == Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re)
 
   function {:axiom} div(z: complex, w: complex): (u: complex)
-    requires w != zero
+    requires w != zero()
     ensures u == Complex(z.re * w.re / norm_sq(w) + z.im * w.im / norm_sq(w), z.im * w.re / norm_sq(w) - z.re * w.im / norm_sq(w))
 
   function {:axiom} pow(b: complex, k: nat): (p: complex) 
-    ensures if k == 0 then p == one else p == mul(b, pow(b, k - 1))
+    ensures if k == 0 then p == one() else p == mul(b, pow(b, k - 1))
 
   function {:axiom} norm_sq(z: complex): (r: real)
     ensures r == z.re * z.re + z.im * z.im
-    ensures r == 0.0 <==> z == zero
+    ensures r == 0.0 <==> z == zero()
 
   function {:axiom} sqrt(x: real): (y: real)
     requires x >= 0.0

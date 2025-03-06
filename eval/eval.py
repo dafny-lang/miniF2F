@@ -18,7 +18,7 @@ UTILS_FILE_PATH = "./dataset/utils.dfy"
 VALID_FOLDER_PATH = "./dataset/valid"
 TEST_FOLDER_PATH = "./dataset/test"
 RESULTS_PATH = "results"
-N = 5
+N = 4
 TEMPERATURE = 0.5
 TOP_P = 0.9
 MAX_GEN_LEN = 2048
@@ -190,4 +190,4 @@ def main() -> None:
   evaluate("valid", "dafny")
 
 if __name__ == "__main__":
-    main()
+  main()
