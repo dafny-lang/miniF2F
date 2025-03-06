@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma induction_divisibility_3divnto3m2n(n: nat)

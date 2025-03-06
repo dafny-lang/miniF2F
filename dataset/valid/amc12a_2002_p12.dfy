@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma amc12a_2002_p12(f: real -> real, k: real)

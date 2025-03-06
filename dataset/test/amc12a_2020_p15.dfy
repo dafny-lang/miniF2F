@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma amc12a_2020_p15(a: complex, b: complex)

@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma mathd_algebra_171(f: real -> real)

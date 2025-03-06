@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma amc12b_2003_p6(a: real, r: real, u: nat -> real)

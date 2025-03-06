@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma numbertheory_prmdvsneqnsqmodpeq0(n: int, p: nat)

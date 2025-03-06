@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma mathd_algebra_43(a: real, b: real, f: real -> real)

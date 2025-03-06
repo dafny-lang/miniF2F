@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma induction_seq_mul2pnp1(n: nat, u: nat -> nat)

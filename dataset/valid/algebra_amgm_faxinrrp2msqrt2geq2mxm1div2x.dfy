@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_amgm_faxinrrp2msqrt2geq2mxm1div2x(x: real)

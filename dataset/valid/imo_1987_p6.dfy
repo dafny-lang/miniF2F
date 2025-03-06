@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma imo_1987_p6(p: nat, f: nat -> nat)

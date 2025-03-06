@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma aime_1983_p2(x: real, p: real, f: real -> real)

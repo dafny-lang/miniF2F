@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma numbertheory_notequiv2i2jasqbsqdiv8(a: int, b: int)

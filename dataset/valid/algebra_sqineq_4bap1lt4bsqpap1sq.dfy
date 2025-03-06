@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_sqineq_4bap1lt4bsqpap1sq(a: real, b: real)

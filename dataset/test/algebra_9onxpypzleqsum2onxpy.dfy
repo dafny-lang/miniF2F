@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_9onxpypzleqsum2onxpy(x: real, y: real, z: real)

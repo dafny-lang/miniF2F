@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_2varlineareq_fp3zeq11_3tfm1m5zeqn68_feqn10_zeq7(f: complex, z: complex)

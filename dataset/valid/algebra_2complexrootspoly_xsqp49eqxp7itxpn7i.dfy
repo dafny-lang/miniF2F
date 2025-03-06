@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_2complexrootspoly_xsqp49eqxp7itxpn7i(x: complex)

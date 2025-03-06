@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma imo_1965_p2(x: real, y: real, z: real, a: nat -> real)

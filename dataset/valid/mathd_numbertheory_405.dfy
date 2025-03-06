@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma mathd_numbertheory_405(a: nat, b: nat, c: nat, t: nat -> nat)

@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma numbertheory_fxeq4powxp6powxp9powx_f2powmdvdf2pown(m: nat, n: nat, f: nat -> nat)

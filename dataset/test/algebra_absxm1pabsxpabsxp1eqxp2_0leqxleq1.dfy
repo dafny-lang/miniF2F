@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_absxm1pabsxpabsxp1eqxp2_0leqxleq1(x: real)

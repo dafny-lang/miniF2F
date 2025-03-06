@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma aime_1989_p8(a: real, b: real, c: real, d: real, e: real, f: real, g: real)

@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_binomnegdiscrineq_10alt28asqp1(a: real)

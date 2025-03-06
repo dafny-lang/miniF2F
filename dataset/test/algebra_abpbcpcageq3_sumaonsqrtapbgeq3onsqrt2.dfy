@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_abpbcpcageq3_sumaonsqrtapbgeq3onsqrt2(a: real, b: real, c: real)

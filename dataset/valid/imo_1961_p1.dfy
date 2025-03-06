@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma imo_1961_p1(x: real, y: real, z: real, a: real, b: real)

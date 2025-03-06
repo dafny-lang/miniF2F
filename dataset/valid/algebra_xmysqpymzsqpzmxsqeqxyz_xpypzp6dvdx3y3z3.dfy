@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3(x: int, y: int, z: int)

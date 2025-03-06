@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma aime_1983_p1(x: nat, y: nat, z: nat, w: nat)

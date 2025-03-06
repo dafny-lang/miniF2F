@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma induction_pprime_pdvdapowpma(p: nat, a: nat)

@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma numbertheory_3pow2pownm1mod2pownp3eq2pownp2(n: nat)

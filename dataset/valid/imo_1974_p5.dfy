@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma imo_1974_p5(a: real, b: real, c: real, d: real, s: real)

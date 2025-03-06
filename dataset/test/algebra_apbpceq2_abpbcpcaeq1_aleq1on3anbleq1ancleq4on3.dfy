@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_apbpceq2_abpbcpcaeq1_aleq1on3anbleq1ancleq4on3(a: real, b: real, c: real)

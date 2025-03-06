@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_sqineq_36azm9asqle36zsq(z: real, a: real)

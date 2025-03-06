@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma numbertheory_aoddbdiv4asqpbsqmod8eq1(a: int, b: nat)

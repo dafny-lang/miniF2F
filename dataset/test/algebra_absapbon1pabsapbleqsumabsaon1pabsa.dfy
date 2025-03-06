@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_absapbon1pabsapbleqsumabsaon1pabsa(a: real, b: real)

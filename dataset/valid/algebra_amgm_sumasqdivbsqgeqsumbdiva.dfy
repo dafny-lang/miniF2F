@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_amgm_sumasqdivbsqgeqsumbdiva(a: real, b: real, c: real)

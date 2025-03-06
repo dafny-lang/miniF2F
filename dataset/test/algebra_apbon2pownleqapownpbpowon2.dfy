@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_apbon2pownleqapownpbpowon2(a: real, b: real, n: nat)

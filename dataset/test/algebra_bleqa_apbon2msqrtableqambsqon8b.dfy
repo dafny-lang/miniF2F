@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_bleqa_apbon2msqrtableqambsqon8b(a: real, b: real)

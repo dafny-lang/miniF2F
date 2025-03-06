@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma aime_1996_p5(a: real, b: real, c: real, r: real, s: real, t: real, f: real -> real, g: real -> real)

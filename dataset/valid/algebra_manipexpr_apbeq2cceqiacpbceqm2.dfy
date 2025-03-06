@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_manipexpr_apbeq2cceqiacpbceqm2(a: complex, b: complex, c: complex)

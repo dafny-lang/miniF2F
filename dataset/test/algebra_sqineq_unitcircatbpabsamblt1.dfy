@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma algebra_sqineq_unitcircatbpabsamblt1(a: real, b: real)

@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma amc12_2001_p21(a: nat, b: nat, c: nat, d: nat)

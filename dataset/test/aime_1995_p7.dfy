@@ -1,3 +1,5 @@
+// Author: Stefan Zetzsche
+
 include "../utils.dfy"
 
 lemma aime_1995_p7(k: nat, m: nat, n: nat, t: real)
