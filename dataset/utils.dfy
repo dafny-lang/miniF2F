@@ -20,7 +20,7 @@ module Rat {
   function {:axiom} add(lhs: rat, rhs: rat): (r: rat)
     ensures r == Rational(lhs.num * rhs.denom + rhs.num * lhs.denom, lhs.denom * rhs.denom)
 
-  function mul(lhs: rat, rhs: rat): (r: rat)
+  function {:axiom} mul(lhs: rat, rhs: rat): (r: rat)
     ensures r == Rational(lhs.num * rhs.num, lhs.denom * rhs.denom)
   
   function {:axiom} of_int(n: int): (r: rat)
