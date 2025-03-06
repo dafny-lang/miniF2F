@@ -1,0 +1,10 @@
+bucket,# lemmas,# lemmas verified with empty proof,% lemmas verified with empty proof
+/amc,30,12,40.0
+/aime,8,4,50.0
+/imo,16,2,12.5
+/mathd_algebra,64,41,64.0625
+/mathd_numbertheory,37,27,72.97297297297297
+/induction,5,0,0.0
+/algebra,12,5,41.66666666666667
+/numbertheory,4,0,0.0
+total,176,91,51.70454545454546

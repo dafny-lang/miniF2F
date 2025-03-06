@@ -187,7 +187,7 @@ def verify_dafny_file(file, silent=False):
         return "Timed out after 15 seconds", False
     
 def main() -> None:
-  evaluate("valid", "dafny")
+  evaluate("test", "dafny")
 
 if __name__ == "__main__":
   main()
