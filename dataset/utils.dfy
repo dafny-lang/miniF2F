@@ -16,6 +16,14 @@ module Rat {
   datatype rat = Rational(num: int, denom: PosInt) {
     function {:axiom} to_real(): (r: real)
       ensures r == this.num as real / this.denom as real
+
+    function {:axiom} neg(): (r: rat)
+      ensures r == Rational(-this.num, this.denom)
+
+    function {:axiom} inv(): (r: rat)
+      requires this.num != 0
+      ensures this.num < 0 ==> var denom: int := this.denom; r == Rational(-denom, -this.num)
+      ensures this.num > 0 ==> var denom: int := this.denom; r == Rational(denom, this.num)
   }
 
   predicate {:axiom} eq(lhs: rat, rhs: rat) 
@@ -30,9 +38,16 @@ module Rat {
   function {:axiom} add(lhs: rat, rhs: rat): (r: rat)
     ensures r == Rational(lhs.num * rhs.denom + rhs.num * lhs.denom, lhs.denom * rhs.denom)
 
+  function {:axiom} sub(lhs: rat, rhs: rat): (r: rat) 
+    ensures r == add(lhs, rhs.neg())
+
   function {:axiom} mul(lhs: rat, rhs: rat): (r: rat)
     ensures r == Rational(lhs.num * rhs.num, lhs.denom * rhs.denom)
-  
+
+  function {:axiom} div(lhs: rat, rhs: rat): (r: rat)
+    requires rhs.num != 0
+    ensures r == mul(lhs, rhs.inv())
+
   function {:axiom} of_int(n: int): (r: rat)
     ensures r == Rational(n, 1)
 
@@ -58,7 +73,10 @@ module Real {
 }
 
 module Complex {
-  datatype complex = Complex(re: real, im: real)
+  datatype complex = Complex(re: real, im: real) {
+    function {:axiom} neg(): (z: complex)
+      ensures z == Complex(-this.re, -this.im)
+  }
 
   function {:axiom} of_real(r: real): (z: complex) 
     ensures z == Complex(r, 0.0)
@@ -76,7 +94,7 @@ module Complex {
     ensures u == Complex(z.re + w.re, z.im + w.im)
 
   function {:axiom} sub(z: complex, w: complex): (u: complex) 
-    ensures u == Complex(z.re - w.re, z.im - w.im)
+    ensures u == add(z, w.neg())
 
   function {:axiom} mul(z: complex, w: complex): (u: complex) 
     ensures u == Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re)
