@@ -156,6 +156,9 @@ function {:axiom} tan(x: real): real
 
 const {:axiom} pi: real
 
+predicate {:axiom} is_least(s: set<nat>, l: nat)
+  ensures is_least(s, l) <==> (l in s && forall a: nat | a in s :: l <= a)
+
 /* LEMMAS */
 
 /* Exp */
