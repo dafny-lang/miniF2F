@@ -5,8 +5,9 @@ module Int {
     ensures k == 0 ==> p == 1 
     ensures k != 0 ==> p == b * pow(b, k - 1)
     ensures b >= 0 ==> p >= 0
-    ensures b == 0 <==> p == 0
+    ensures (b == 0 && k != 0) <==> p == 0
     ensures b > 0 ==> p > 0
+    ensures k == 1 ==> b == p
 }
 
 module Rat {
@@ -18,7 +19,13 @@ module Rat {
   }
 
   predicate {:axiom} eq(lhs: rat, rhs: rat) 
-    ensures eq(lhs, rhs) <==> lhs.num * rhs.denom == rhs.num * lhs.denom
+    ensures eq(lhs, rhs) <==> (lhs.num * rhs.denom == rhs.num * lhs.denom)
+
+  predicate {:axiom} leq(lhs: rat, rhs: rat)
+    ensures leq(lhs, rhs) <==> (lhs.num * rhs.denom <= rhs.num * lhs.denom)
+
+  predicate {:axiom} le(lhs: rat, rhs: rat)
+    ensures le(lhs, rhs) <==> (lhs.num * rhs.denom < rhs.num * lhs.denom)
 
   function {:axiom} add(lhs: rat, rhs: rat): (r: rat)
     ensures r == Rational(lhs.num * rhs.denom + rhs.num * lhs.denom, lhs.denom * rhs.denom)
@@ -28,6 +35,9 @@ module Rat {
   
   function {:axiom} of_int(n: int): (r: rat)
     ensures r == Rational(n, 1)
+
+  function {:axiom} zero(): rat
+    ensures zero() == of_int(0)
 }
 
 module Real {
@@ -35,11 +45,16 @@ module Real {
     ensures k == 0 ==> p == 1.0 
     ensures k != 0 ==> p == b * pow(b, k - 1)
     ensures b >= 0.0 ==> p >= 0.0
-    ensures b == 0.0 <==> p == 0.0
+    ensures (b == 0.0 && k != 0) <==> p == 0.0
     ensures b > 0.0 ==> p > 0.0
+    ensures k == 1 ==> b == p
     ensures p == rpow(b, k as real)
 
-  function {:axiom} rpow(x: real, y: real): (p: real)
+  function {:axiom} rpow(b: real, k: real): (p: real)
+    ensures k == 0.0 ==> p == 1.0
+    ensures (b == 0.0 && k != 0.0) <==> p == 0.0
+    ensures b > 0.0 ==> p > 0.0
+    ensures k == 1.0 ==> b == p
 }
 
 module Complex {
