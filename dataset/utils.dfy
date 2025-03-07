@@ -96,6 +96,11 @@ import opened Rat
 import opened Complex
 import opened Finset
 
+function {:axiom} choose(n: nat, k: nat): nat
+  ensures n >= 1 && k >= 1 ==> choose(n,k) == choose(n-1,k-1) + choose(n-1,k)
+  ensures k != 0 ==> choose(0,k) == 0
+  ensures choose(n,0) == 1
+
 function {:axiom} floor(x: real): (m: int)
   ensures m as real <= x < (m+1) as real
 
