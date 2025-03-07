@@ -90,7 +90,8 @@ def write_summary(folder):
             
             total_verified_lemmas_percentage = total_verified_lemmas/total_lemmas*100
             total_full_verified_lemmas_percentage = total_verified_lemmas/244*100
-            writer.writerow(['total', f'{total_lemmas} (244)', total_verified_lemmas, f'{total_verified_lemmas_percentage} ({total_full_verified_lemmas_percentage})'])
+            total_percentage = total_lemmas / 244 * 100
+            writer.writerow([f'total ({total_percentage})', f'{total_lemmas} (244)', total_verified_lemmas, f'{total_verified_lemmas_percentage} ({total_full_verified_lemmas_percentage})'])
 
         print("CSV file has been created successfully!")
 
