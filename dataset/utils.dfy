@@ -2,8 +2,11 @@
 
 module Int {
   function {:axiom} pow(b: int, k: nat): (p: int) 
+    ensures k == 0 ==> p == 1 
+    ensures k != 0 ==> p == b * pow(b, k - 1)
     ensures b >= 0 ==> p >= 0
-    ensures if k == 0 then p == 1 else p == b * pow(b, k - 1)
+    ensures b == 0 <==> p == 0
+    ensures b > 0 ==> p > 0
 }
 
 module Rat {
@@ -25,14 +28,15 @@ module Rat {
   
   function {:axiom} of_int(n: int): (r: rat)
     ensures r == Rational(n, 1)
-
-
 }
 
 module Real {
   function {:axiom} pow(b: real, k: nat): (p: real) 
+    ensures k == 0 ==> p == 1.0 
+    ensures k != 0 ==> p == b * pow(b, k - 1)
     ensures b >= 0.0 ==> p >= 0.0
-    ensures if k == 0 then p == 1.0 else p == b * pow(b, k - 1)
+    ensures b == 0.0 <==> p == 0.0
+    ensures b > 0.0 ==> p > 0.0
     ensures p == rpow(b, k as real)
 
   function {:axiom} rpow(x: real, y: real): (p: real)
@@ -113,7 +117,8 @@ function {:axiom} abs(x: real): (r: real)
   ensures if x >= 0.0 then r == x else r == -x
 
 function {:axiom} factorial(n: nat): (r: nat) 
-  ensures if n == 0 then r == 1 else r == n * factorial(n-1)
+  ensures n == 0 ==> r == 1 
+  ensures n != 0 ==> r == n * factorial(n-1)
 
 predicate {:axiom} prime(n: int) 
   ensures prime(n) <==> 2 <= n && forall m | 2 <= m < n :: n % m != 0
@@ -156,8 +161,11 @@ function {:axiom} tan(x: real): real
 
 const {:axiom} pi: real
 
-predicate {:axiom} is_least(s: set<nat>, l: nat)
+predicate {:axiom} is_least(s: iset<nat>, l: nat)
   ensures is_least(s, l) <==> (l in s && forall a: nat | a in s :: l <= a)
+
+predicate {:axiom} is_greatest(s: iset<nat>, g: nat)
+  ensures is_greatest(s, g) <==> (g in s && forall a: nat | a in s :: a <= g)
 
 /* LEMMAS */
 
