@@ -180,6 +180,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/amc12a_2009_p6.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/imo_2019_p1.dfy",
         "result": "failed"
     },
@@ -232,6 +236,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/amc12b_2020_p22.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/imo_1964_p2.dfy",
         "result": "failed"
     },
@@ -253,7 +261,7 @@
     },
     {
         "id": "dataset/test/amc12a_2013_p4.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/mathd_algebra_440.dfy",
@@ -445,6 +453,10 @@
     },
     {
         "id": "dataset/test/amc12a_2021_p19.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/amc12a_2021_p18.dfy",
         "result": "failed"
     },
     {

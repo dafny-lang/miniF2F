@@ -1,5 +1,5 @@
 category,# lemmas,# lemmas verified with empty proof,% lemmas verified with empty proof
-/amc,30 (45),7,23.333333333333332 (15.555555555555555)
+/amc,33 (45),8,24.242424242424242 (17.77777777777778)
 /aime,12 (15),2,16.666666666666664 (13.333333333333334)
 /imo,17 (20),0,0.0 (0.0)
 /mathd_algebra,61 (70),43,70.49180327868852 (61.42857142857143)
@@ -7,4 +7,4 @@ category,# lemmas,# lemmas verified with empty proof,% lemmas verified with empt
 /induction,5 (8),0,0.0 (0.0)
 /algebra,13 (18),4,30.76923076923077 (22.22222222222222)
 /numbertheory,8 (8),0,0.0 (0.0)
-total,190 (244),89,46.8421052631579 (36.47540983606557)
+total (79.09836065573771),193 (244),90,46.63212435233161 (36.885245901639344)

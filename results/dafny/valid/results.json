@@ -88,6 +88,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/valid/mathd_numbertheory_232.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/valid/mathd_algebra_144.dfy",
         "result": "verified"
     },
@@ -146,6 +150,18 @@
     {
         "id": "dataset/valid/amc12a_2017_p7.dfy",
         "result": "failed"
+    },
+    {
+        "id": "dataset/valid/mathd_numbertheory_43.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/valid/mathd_numbertheory_42.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/valid/numbertheory_xsqpysqintdenomeq.dfy",
+        "result": "verified"
     },
     {
         "id": "dataset/valid/mathd_numbertheory_81.dfy",
@@ -264,6 +280,10 @@
         "result": "verified"
     },
     {
+        "id": "dataset/valid/mathd_numbertheory_668.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/valid/mathd_numbertheory_33.dfy",
         "result": "verified"
     },
@@ -300,6 +320,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/valid/algebra_3rootspoly_amdtamctambeqnasqmbpctapcbtdpasqmbpctapcbta.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/valid/mathd_algebra_123.dfy",
         "result": "verified"
     },
@@ -313,6 +337,10 @@
     },
     {
         "id": "dataset/valid/mathd_algebra_43.dfy",
+        "result": "verified"
+    },
+    {
+        "id": "dataset/valid/algebra_2rootsintpoly_am10tap11eqasqpam110.dfy",
         "result": "verified"
     },
     {
@@ -348,6 +376,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/valid/numbertheory_nckeqnm1ckpnm1ckm1.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/valid/mathd_numbertheory_530.dfy",
         "result": "verified"
     },
@@ -356,8 +388,16 @@
         "result": "failed"
     },
     {
+        "id": "dataset/valid/algebra_2rootspoly_apatapbeq2asqp2ab.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/valid/mathd_algebra_493.dfy",
         "result": "failed"
+    },
+    {
+        "id": "dataset/valid/mathd_numbertheory_690.dfy",
+        "result": "verified"
     },
     {
         "id": "dataset/valid/mathd_algebra_323.dfy",
@@ -432,6 +472,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/valid/mathd_numbertheory_13.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/valid/aime_1990_p2.dfy",
         "result": "failed"
     },
@@ -453,7 +497,7 @@
     },
     {
         "id": "dataset/valid/mathd_algebra_89.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/valid/imo_1961_p1.dfy",
@@ -500,6 +544,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/valid/algebra_2varlineareq_xpeeq7_2xpeeq3_eeq11_xeqn4.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/valid/algebra_apb4leq8ta4pb4.dfy",
         "result": "failed"
     },
@@ -544,6 +592,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/valid/algebra_manipexpr_2erprsqpesqeqnrpnesq.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/valid/amc12a_2008_p15.dfy",
         "result": "failed"
     },
@@ -553,6 +605,10 @@
     },
     {
         "id": "dataset/valid/mathd_numbertheory_198.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/valid/mathd_numbertheory_629.dfy",
         "result": "failed"
     },
     {
@@ -586,6 +642,10 @@
     {
         "id": "dataset/valid/mathd_algebra_206.dfy",
         "result": "failed"
+    },
+    {
+        "id": "dataset/valid/mathd_numbertheory_64.dfy",
+        "result": "verified"
     },
     {
         "id": "dataset/valid/numbertheory_sqmod4in01d.dfy",
@@ -641,7 +701,11 @@
     },
     {
         "id": "dataset/valid/aime_1984_p15.dfy",
-        "result": "verified"
+        "result": "failed"
+    },
+    {
+        "id": "dataset/valid/amc12a_2019_p9.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/valid/amc12b_2004_p3.dfy",

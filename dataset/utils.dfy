@@ -2,8 +2,7 @@
 
 module Int {
   function {:axiom} pow(b: int, k: nat): (p: int) 
-    ensures k == 0 ==> p == 1 
-    ensures k != 0 ==> p == b * pow(b, k - 1)
+    ensures if k == 0 then p == 1 else p == b * pow(b, k - 1)
     ensures b >= 0 ==> p >= 0
     ensures (b == 0 && k != 0) <==> p == 0
     ensures b > 0 ==> p > 0
@@ -57,8 +56,7 @@ module Rat {
 
 module Real {
   function {:axiom} pow(b: real, k: nat): (p: real) 
-    ensures k == 0 ==> p == 1.0 
-    ensures k != 0 ==> p == b * pow(b, k - 1)
+    ensures if k == 0 then p == 1.0 else p == b * pow(b, k - 1)
     ensures b >= 0.0 ==> p >= 0.0
     ensures (b == 0.0 && k != 0) <==> p == 0.0
     ensures b > 0.0 ==> p > 0.0
@@ -150,8 +148,7 @@ function {:axiom} abs(x: real): (r: real)
   ensures if x >= 0.0 then r == x else r == -x
 
 function {:axiom} factorial(n: nat): (r: nat) 
-  ensures n == 0 ==> r == 1 
-  ensures n != 0 ==> r == n * factorial(n-1)
+  ensures if n == 0 then r == 1 else r == n * factorial(n-1)
 
 predicate {:axiom} prime(n: int) 
   ensures prime(n) <==> 2 <= n && forall m | 2 <= m < n :: n % m != 0
