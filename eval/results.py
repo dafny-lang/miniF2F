@@ -18,13 +18,14 @@ SONNET_BEDROCK_MODEL_ID = "arn:aws:bedrock:us-east-1:730335450364:inference-prof
 LLAMA_BEDROCK_MODEL_ID = "arn:aws:bedrock:us-east-1:730335450364:inference-profile/us.meta.llama3-3-70b-instruct-v1:0"
 NOVA_BEDROCK_ID = "arn:aws:bedrock:us-east-1:730335450364:inference-profile/us.amazon.nova-pro-v1:0"
 UTILS_FILE_PATH = "./dataset/utils.dfy"
+PROMPT_FILE_PATH = "./eval/prompt.txt"
 VALID_FOLDER_PATH = "./dataset/valid"
 TEST_FOLDER_PATH = "./dataset/test"
 RESULTS_PATH = "results"
-N = 5
+N = 32
 TEMPERATURE = 0.5
 TOP_P = 0.9
-MAX_GEN_LEN = 2048
+MAX_GEN_LEN = 4000
 
 def create_test_result(id: str, result: str) -> Dict[str, str]:
   return {"id": id, "result": result}
@@ -33,6 +34,12 @@ def write_test_results(results: List[Dict[str, Any]], results_file_path: Path, i
   results_file_path.parent.mkdir(parents=True, exist_ok=True)
   with results_file_path.open('w') as file:
     json.dump(results, file, indent=indent)
+
+def extract_lang(s: str) -> str:
+  try:
+    return s.split(f'```dafny')[1].split('```')[0].strip()
+  except:
+    return ''
 
 def evaluate(type: str, model: str, service: str) -> None:
   if type == "valid":
@@ -58,7 +65,13 @@ def evaluate(type: str, model: str, service: str) -> None:
         lines = file.readlines()
       lines = lines[:-1]
       incomplete_dafny_file_content = ''.join(lines)
-      prompt = "The Dafny file 'utils.dfy' has the following content: \n\n" + utils_file_content + "\n\n\n Please append to the following Dafny file so that it verifies: \n\n" + incomplete_dafny_file_content + "\n\n Only return the part that you want to append. Do not return anything else."
+      print(incomplete_dafny_file_content)
+      incomplete_dafny_file_line_count = len(incomplete_dafny_file_content.splitlines())
+      print(incomplete_dafny_file_line_count)
+      with open(PROMPT_FILE_PATH) as f:
+        prompts = list(map(lambda s: s.strip(), ''.join(f.readlines()).split('\n---\n')))
+      sys_prompt = prompts[0].format(utils_file_content=utils_file_content)
+      user_prompt = prompts[1].format(incomplete_dafny_file_content=incomplete_dafny_file_content)
       # Set verified to false
       verified = False
       # Loop until verified or i >= N
@@ -73,11 +86,13 @@ def evaluate(type: str, model: str, service: str) -> None:
             completion = "{}"
           else:
             if service == "bedrock":
-              completion = call_bedrock(prompt, model)
+              completion = extract_lang(call_bedrock(sys_prompt, user_prompt, model))
             if service == "ollama":
-              completion = call_ollama(prompt, model)
+              completion = extract_lang(call_ollama(sys_prompt, user_prompt, model))
+            print(str(completion))
+            completion = '\n'.join(str(completion).splitlines()[incomplete_dafny_file_line_count:])
         # Add completion
-        complete_dafny_file_content = incomplete_dafny_file_content + str(completion)
+        complete_dafny_file_content = incomplete_dafny_file_content + completion
         # Write completed file
         if model != "dafny":
           complete_dafny_file_path = traces_results_path + f"/{incomplete_dafny_file.stem}_{i}.dfy"
@@ -111,9 +126,11 @@ def evaluate(type: str, model: str, service: str) -> None:
           results.append(create_test_result(incomplete_dafny_file_path, f"failed after {N} iterations"))
       write_test_results(results, results_file_path)
 
-def call_bedrock(prompt: str, model_id: str) -> str:
+
+def call_bedrock(sys_prompt: str, user_prompt: str, model_id: str) -> str:
   if model_id == SONNET_BEDROCK_MODEL_ID:
     body = json.dumps({
+      "system": sys_prompt,
       "anthropic_version": "bedrock-2023-05-31",
       "max_tokens": MAX_GEN_LEN,
       "messages": [
@@ -122,7 +139,7 @@ def call_bedrock(prompt: str, model_id: str) -> str:
               "content": [
                   {
                       "type": "text",
-                      "text": prompt
+                      "text": user_prompt
                   }
               ]
           }
@@ -140,8 +157,10 @@ def call_bedrock(prompt: str, model_id: str) -> str:
   
   if model_id == LLAMA_BEDROCK_MODEL_ID:
     formatted_prompt = f"""
+    <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+    {sys_prompt}
     <|begin_of_text|><|start_header_id|>user<|end_header_id|>
-    {prompt}
+    {user_prompt}
     <|eot_id|>
     <|start_header_id|>assistant<|end_header_id|>
     """
@@ -162,12 +181,13 @@ def call_bedrock(prompt: str, model_id: str) -> str:
 
   if model_id == NOVA_BEDROCK_ID:
     body = json.dumps({
+      "system": sys_prompt,
       "messages": [
           {
             "role": "user",
             "content": [
               {
-                "text": prompt
+                "text": user_prompt
               }
             ]
           }
@@ -188,13 +208,13 @@ def call_bedrock(prompt: str, model_id: str) -> str:
 
   return response_text
 
-def call_ollama(prompt: str, model_id: str) -> str:
+def call_ollama(sys_prompt: str, user_prompt: str, model_id: str) -> str:
   response: ChatResponse = chat(
     model=model_id, 
     messages=[
       {
         'role': 'user',
-        'content': prompt,
+        'content': sys_prompt + user_prompt,
       },
     ], 
     options={
@@ -203,8 +223,8 @@ def call_ollama(prompt: str, model_id: str) -> str:
       'num_ctx': MAX_GEN_LEN
     }
   )
-  response_content = response.message.content
-  response_content = re.sub(r"<think>.*?</think>\n?", "", response_content, flags=re.DOTALL)
+  response_content = response['message']['content']
+  #response_content = re.sub(r"<think>.*?</think>\n?", "", response_content, flags=re.DOTALL)
   return response_content                        
 
 def verify_dafny_file(file, silent=False):
@@ -227,10 +247,10 @@ def verify_dafny_file(file, silent=False):
     
 def main() -> None:
   #evaluate("valid", "codestral", "ollama")
-  #evaluate("valid", "llama3.2", "ollama")
+  evaluate("valid", "llama3.2", "ollama")
   #evaluate("valid", LLAMA_BEDROCK_MODEL_ID, "bedrock")
   #evaluate("valid", NOVA_BEDROCK_ID, "bedrock")
-  evaluate("valid", SONNET_BEDROCK_MODEL_ID, "bedrock")
+  #evaluate("valid", SONNET_BEDROCK_MODEL_ID, "bedrock")
 
 if __name__ == "__main__":
   main()

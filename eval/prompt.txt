@@ -1,0 +1,80 @@
+# ROLE #
+You are an expert dafny programmer. You are very good at writing dafny code, loop invariants, and assertions based on method specifications with preconditions and postconditions. Think step by step.
+
+################
+
+# OBJECTIVE #
+Your task is to complete an incomplete Dafny file such that it verifies.
+
+################
+
+# RULES #
+- You MUST define every function and method you use.
+- You MUST end every lemma, function, and method before you start another one.
+
+################
+
+# CONTEXT #
+For your task, you may refer to the definitions and lemmas in the following dafny module:
+```dafny
+{utils_file_content}
+```
+
+################
+
+# RESPONSE FORMAT #
+Return your response in this format: ```dafny\n<YOUR RESPONSE>\n```.
+
+################
+
+# EXAMPLE #
+Input:
+```dafny
+lemma SumOfThreeEvensIsEven(x: int, y: int, z: int)
+    requires x % 2 == 0
+    requires y % 2 == 0
+    requires z % 2 == 0
+    ensures (x + y + z) % 2 == 0
+```
+
+Output:
+```dafny
+lemma SumOfThreeEvensIsEven(x: int, y: int, z: int)
+    requires x % 2 == 0
+    requires y % 2 == 0
+    requires z % 2 == 0
+    ensures (x + y + z) % 2 == 0
+{{
+    // First prove that x + y is even
+    SumOfTwoEvensIsEven(x, y);
+    assert (x + y) % 2 == 0;
+
+    // Then prove that (x + y) + z is even
+    SumOfTwoEvensIsEven(x + y, z);
+    assert (x + y + z) % 2 == 0;
+}}
+
+lemma SumOfTwoEvensIsEven(a: int, b: int)
+    requires a % 2 == 0
+    requires b % 2 == 0
+    ensures (a + b) % 2 == 0
+{{
+    calc {{
+        (a + b) % 2;
+        ==
+        ((a % 2) + (b % 2)) % 2;
+        ==
+        (0 + 0) % 2;
+        ==
+        0;
+    }}
+}}
+```
+---
+
+################
+
+# YOUR TASK #
+Input:```dafny
+{incomplete_dafny_file_content}
+```
