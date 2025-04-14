@@ -205,3 +205,8 @@ predicate {:axiom} is_least(s: iset<nat>, l: nat)
 
 predicate {:axiom} is_greatest(s: iset<nat>, g: nat)
   ensures is_greatest(s, g) <==> (g in s && forall a: nat | a in s :: a <= g)
+
+function {:axiom} digits(b: int, n: int): seq<int>
+
+function {:axiom} divisors(n: int): (s: set<int>)
+  ensures forall x | x != 0 :: x in s <==> n % x == 0
