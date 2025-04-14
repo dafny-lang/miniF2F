@@ -77,6 +77,9 @@ module Real {
 
   function {:axiom} sum<T>(s: set<T>, f: T -> real): (p: real)
     ensures forall x | x in s :: p == f(x) + sum(s - {x}, f)
+
+  function {:axiom} prod<T>(s: set<T>, f: T -> real): (p: real)
+    ensures forall x | x in s :: p == f(x) * prod(s - {x}, f)
 }
 
 module Complex {
@@ -207,6 +210,8 @@ predicate {:axiom} is_greatest(s: iset<nat>, g: nat)
   ensures is_greatest(s, g) <==> (g in s && forall a: nat | a in s :: a <= g)
 
 function {:axiom} digits(b: int, n: int): seq<int>
+
+function {:axiom} of_digits(b: int, xs: seq<int>): (n: int)
 
 function {:axiom} divisors(n: int): (s: set<int>)
   ensures forall x | x != 0 :: x in s <==> n % x == 0
