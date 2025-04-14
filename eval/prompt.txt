@@ -14,14 +14,6 @@ Your task is to complete an incomplete Dafny file such that it verifies.
 
 ################
 
-# CONTEXT #
-For your task, you may refer to the definitions and lemmas in the following dafny module:
-```dafny
-{utils_file_content}
-```
-
-################
-
 # RESPONSE FORMAT #
 Return your response in this format: ```dafny\n<YOUR RESPONSE>\n```.
 
