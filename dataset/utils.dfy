@@ -58,6 +58,9 @@ module Rat {
 
   function {:axiom} zero(): rat
     ensures zero() == of_int(0)
+
+  function {:axiom} sum<T>(s: set<T>, f: T -> rat): (p: rat)
+    ensures forall x | x in s :: p == add(f(x), sum(s - {x}, f))
 }
 
 module Real {
@@ -124,6 +127,7 @@ module Complex {
     requires x >= 0.0
     ensures y >= 0.0
     ensures y * y == x
+    ensures x > 0.0 ==> y > 0.0
 
   function {:axiom} abs(z: complex): (r: real) 
     ensures r == sqrt(z.re * z.re + z.im * z.im)
