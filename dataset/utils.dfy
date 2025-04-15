@@ -131,7 +131,16 @@ module Complex {
 
   function {:axiom} abs(z: complex): (r: real) 
     ensures r == sqrt(z.re * z.re + z.im * z.im)
+
+  function {:axiom} sum<T>(s: set<T>, f: T -> complex): (p: complex)
+    ensures forall x | x in s :: p == add(f(x), sum(s - {x}, f))
 }
+
+function {:axiom} sqrt(x: real): (y: real)
+  requires x >= 0.0
+  ensures y >= 0.0
+  ensures y * y == x
+  ensures x > 0.0 ==> y > 0.0
 
 function {:axiom} icc<T>(s: set<T>, t: set<T>): (r: set<set<T>>)
   ensures r == set x | s <= x <= t
