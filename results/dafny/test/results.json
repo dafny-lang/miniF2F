@@ -24,8 +24,16 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/amc12_2001_p5.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_numbertheory_345.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/aime_1999_p11.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/mathd_numbertheory_769.dfy",
@@ -34,6 +42,10 @@
     {
         "id": "dataset/test/mathd_algebra_392.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/aime_1983_p3.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/mathd_algebra_184.dfy",
@@ -64,6 +76,14 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/imo_2007_p6.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_233.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/test/mathd_numbertheory_227.dfy",
         "result": "failed"
     },
@@ -80,7 +100,15 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/mathd_numbertheory_353.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_numbertheory_435.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_algebra_756.dfy",
         "result": "failed"
     },
     {
@@ -112,6 +140,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/mathd_algebra_342.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/aime_1990_p15.dfy",
         "result": "failed"
     },
@@ -128,6 +160,10 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/mathd_numbertheory_343.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/imo_1960_p2.dfy",
         "result": "failed"
     },
@@ -136,8 +172,16 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/mathd_numbertheory_237.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_numbertheory_551.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/mathd_algebra_196.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/mathd_algebra_141.dfy",
@@ -176,11 +220,35 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/algebra_cubrtrp1oncubrtreq3_rcubp1onrcubeq5778.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_427.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_341.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_numbertheory_618.dfy",
         "result": "failed"
     },
     {
+        "id": "dataset/test/mathd_algebra_208.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/amc12a_2009_p6.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_3.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/induction_pord1p1on2powklt5on2.dfy",
         "result": "failed"
     },
     {
@@ -194,6 +262,10 @@
     {
         "id": "dataset/test/mathd_algebra_354.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_552.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/mathd_numbertheory_234.dfy",
@@ -312,6 +384,10 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/mathd_numbertheory_127.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/aime_1995_p7.dfy",
         "result": "failed"
     },
@@ -332,16 +408,40 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/amc12a_2003_p23.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_296.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/amc12a_2020_p10.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/amc12b_2021_p1.dfy",
         "result": "failed"
     },
     {
+        "id": "dataset/test/algebra_apbmpcneq0_aeq0anbeq0anceq0.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_447.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_321.dfy",
+        "result": "verified"
+    },
+    {
         "id": "dataset/test/mathd_numbertheory_320.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/amc12a_2021_p14.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/imo_1985_p6.dfy",
@@ -364,6 +464,10 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/induction_sumkexp3eqsumksq.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_478.dfy",
         "result": "verified"
     },
@@ -376,6 +480,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/amc12a_2003_p5.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/algebra_bleqa_apbon2msqrtableqambsqon8b.dfy",
         "result": "failed"
     },
@@ -384,8 +492,20 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/mathd_numbertheory_451.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/amc12b_2021_p3.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_135.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/imo_1974_p3.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/mathd_numbertheory_1124.dfy",
@@ -456,7 +576,15 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/amc12a_2021_p25.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/amc12a_2021_p18.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_12.dfy",
         "result": "failed"
     },
     {
@@ -488,6 +616,14 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/amc12b_2002_p4.dfy",
+        "result": "verified"
+    },
+    {
+        "id": "dataset/test/amc12a_2020_p7.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/amc12a_2002_p13.dfy",
         "result": "failed"
     },
@@ -505,6 +641,10 @@
     },
     {
         "id": "dataset/test/numbertheory_fxeq4powxp6powxp9powx_f2powmdvdf2pown.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/amc12a_2020_p25.dfy",
         "result": "failed"
     },
     {
@@ -528,6 +668,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/mathd_algebra_275.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_513.dfy",
         "result": "verified"
     },
@@ -544,8 +688,16 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/amc12a_2020_p4.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_numbertheory_277.dfy",
         "result": "verified"
+    },
+    {
+        "id": "dataset/test/algebra_amgm_sum1toneqn_prod1tonleq1.dfy",
+        "result": "failed"
     },
     {
         "id": "dataset/test/mathd_algebra_459.dfy",
@@ -565,6 +717,14 @@
     },
     {
         "id": "dataset/test/algebra_sqineq_unitcircatbpamblt1.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/algebra_ineq_nto1onlt2m1on.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/amc12a_2021_p22.dfy",
         "result": "failed"
     },
     {
@@ -600,6 +760,14 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/mathd_algebra_114.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_numbertheory_239.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_359.dfy",
         "result": "verified"
     },
@@ -624,6 +792,10 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/mathd_algebra_158.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_170.dfy",
         "result": "failed"
     },
@@ -636,6 +808,10 @@
         "result": "verified"
     },
     {
+        "id": "dataset/test/aime_1984_p1.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_400.dfy",
         "result": "verified"
     },
@@ -644,11 +820,19 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/amc12a_2021_p9.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/algebra_others_exirrpowirrrat.dfy",
         "result": "failed"
     },
     {
         "id": "dataset/test/aime_1991_p9.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/imo_1969_p2.dfy",
         "result": "failed"
     },
     {
@@ -716,6 +900,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/algebra_sum1onsqrt2to1onsqrt10000lt198.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_148.dfy",
         "result": "failed"
     },
@@ -732,6 +920,10 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/induction_prod1p1onk3le3m1onn.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/mathd_algebra_412.dfy",
         "result": "verified"
     },
@@ -740,11 +932,23 @@
         "result": "failed"
     },
     {
+        "id": "dataset/test/mathd_numbertheory_764.dfy",
+        "result": "failed"
+    },
+    {
         "id": "dataset/test/amc12_2000_p12.dfy",
         "result": "verified"
     },
     {
         "id": "dataset/test/numbertheory_x5neqy2p4.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_algebra_598.dfy",
+        "result": "failed"
+    },
+    {
+        "id": "dataset/test/mathd_algebra_215.dfy",
         "result": "failed"
     },
     {

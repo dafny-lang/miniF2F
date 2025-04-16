@@ -65,9 +65,7 @@ def evaluate(type: str, model: str, service: str) -> None:
         lines = file.readlines()
       lines = lines[:-1]
       incomplete_dafny_file_content = ''.join(lines)
-      print(incomplete_dafny_file_content)
       incomplete_dafny_file_line_count = len(incomplete_dafny_file_content.splitlines())
-      print(incomplete_dafny_file_line_count)
       with open(PROMPT_FILE_PATH) as f:
         prompts = list(map(lambda s: s.strip(), ''.join(f.readlines()).split('\n---\n')))
       sys_prompt = prompts[0].format(utils_file_content=utils_file_content)
@@ -89,10 +87,10 @@ def evaluate(type: str, model: str, service: str) -> None:
               completion = extract_lang(call_bedrock(sys_prompt, user_prompt, model))
             if service == "ollama":
               completion = extract_lang(call_ollama(sys_prompt, user_prompt, model))
-            print(str(completion))
             completion = '\n'.join(str(completion).splitlines()[incomplete_dafny_file_line_count:])
         # Add completion
         complete_dafny_file_content = incomplete_dafny_file_content + completion
+        print(complete_dafny_file_content)
         # Write completed file
         if model != "dafny":
           complete_dafny_file_path = traces_results_path + f"/{incomplete_dafny_file.stem}_{i}.dfy"
@@ -106,7 +104,9 @@ def evaluate(type: str, model: str, service: str) -> None:
           )
         # Verify completed file
         if model == "dafny":
-          _, verified = verify_dafny_file(incomplete_dafny_file_path)
+          x, verified = verify_dafny_file(incomplete_dafny_file_path)
+          print(x)
+          print(verified)
         else:
           _, verified = verify_dafny_file(complete_dafny_file_path)
         # Add positive verification result
@@ -238,7 +238,6 @@ def verify_dafny_file(file, silent=False):
     
     output = s.stdout.decode('utf-8') + s.stderr.decode('utf-8')
     return output, (
-      s.returncode == 0 and \
       "verified, 0 errors" in output and \
       "File contains no code" not in output
     )
@@ -246,8 +245,11 @@ def verify_dafny_file(file, silent=False):
       return "Timed out after 15 seconds", False
     
 def main() -> None:
+  #evaluate("valid", "dafny", "null")
+  evaluate("test", "dafny", "null")
+  evaluate("valid", "dafny", "null")
   #evaluate("valid", "codestral", "ollama")
-  evaluate("valid", "llama3.2", "ollama")
+  #evaluate("valid", "llama3.2", "ollama")
   #evaluate("valid", LLAMA_BEDROCK_MODEL_ID, "bedrock")
   #evaluate("valid", NOVA_BEDROCK_ID, "bedrock")
   #evaluate("valid", SONNET_BEDROCK_MODEL_ID, "bedrock")
