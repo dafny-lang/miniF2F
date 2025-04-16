@@ -1,0 +1,8 @@
+// Author: Stefan Zetzsche
+
+include "../utils.dfy"
+
+lemma aime_1983_p3(f: real -> real)
+  requires forall x :: f(x) == x*x + 18.0*x + 30.0 - 2.0*sqrt(x*x + 18.0*x + 45.0)
+  ensures exists s: set<real> :: (iset x | x in s :: x) == (iset x | f(x) == 0.0) && (Real.prod(s, x => x) == 20.0)
+{}
