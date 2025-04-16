@@ -83,6 +83,9 @@ module Real {
 
   function {:axiom} prod<T>(s: set<T>, f: T -> real): (p: real)
     ensures forall x | x in s :: p == f(x) * prod(s - {x}, f)
+
+  predicate {:axiom} is_greatest(s: iset<real>, g: real)
+    ensures is_greatest(s, g) <==> (g in s && forall a: real | a in s :: a <= g)
 }
 
 module Complex {
