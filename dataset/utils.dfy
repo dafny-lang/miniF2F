@@ -128,7 +128,7 @@ module Complex {
     ensures r == 0.0 <==> z == zero()
 
   function {:verify false} sqrt(x: real): (y: real)
-    requires x >= 0.0
+    ensures x <= 0.0 ==> y == 0.0
     ensures y >= 0.0
     ensures y * y == x
     ensures x > 0.0 ==> y > 0.0
@@ -142,10 +142,11 @@ module Complex {
 }
 
 function {:axiom} sqrt(x: real): (y: real)
-  requires x >= 0.0
+  ensures x <= 0.0 ==> y == 0.0
   ensures y >= 0.0
   ensures y * y == x
   ensures x > 0.0 ==> y > 0.0
+  ensures forall y, z | y >= 0.0 && z >= 0.0 :: sqrt(y*z) == sqrt(y)*sqrt(z)
 
 function {:axiom} icc<T>(s: set<T>, t: set<T>): (r: set<set<T>>)
   ensures r == set x | s <= x <= t
