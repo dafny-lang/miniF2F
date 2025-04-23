@@ -111,7 +111,7 @@ lemma {:axiom} neg_one_le_sin(x: real)
   ensures -1.0 <= sin(x)
 
 lemma {:axiom} cos_le_one(x: real)
-  ensures x <= 1.0
+  ensures cos(x) <= 1.0
 
 lemma {:axiom} sin_le_one(x: real)
   ensures sin(x) <= 1.0
@@ -119,49 +119,49 @@ lemma {:axiom} sin_le_one(x: real)
 /* Pi */
 
 lemma {:axiom} cos_pi_div_two()
-  ensures cos(pi/2.0) == 0.0
+  ensures cos(pi()/2.0) == 0.0
 
 lemma {:axiom} sin_pi()
-  ensures sin(pi) == 0.0
+  ensures sin(pi()) == 0.0
 
 lemma {:axiom} cos_pi()
-  ensures cos(pi) == -1.0
+  ensures cos(pi()) == -1.0
 
 lemma {:axiom} sin_two_pi()
-  ensures sin(2.0*pi) == 0.0
+  ensures sin(2.0*pi()) == 0.0
 
 lemma {:axiom} cos_two_pi()
-  ensures cos(2.0*pi) == 1.0
+  ensures cos(2.0*pi()) == 1.0
 
 lemma {:axiom} sin_add_pi(x: real)
-  ensures sin(x + pi) == -sin(x)
+  ensures sin(x + pi()) == -sin(x)
 
 lemma {:axiom} sin_add_two_pi(x: real)
-  ensures sin(x + 2.0*pi) == sin(x)
+  ensures sin(x + 2.0*pi()) == sin(x)
 
 lemma {:axiom} sin_sub_pi(x: real)
-  ensures sin(x - pi) == -sin(x)
+  ensures sin(x - pi()) == -sin(x)
 
 lemma {:axiom} sin_sub_two_pi(x: real)
-  ensures sin(x - 2.0*pi) == sin(x)
+  ensures sin(x - 2.0*pi()) == sin(x)
 
 lemma {:axiom} cos_add_pi(x: real)
-  ensures cos(x + pi) == -cos(x)
+  ensures cos(x + pi()) == -cos(x)
 
 lemma {:axiom} cos_add_two_pi(x: real)
-  ensures cos(x + 2.0*pi) == cos(x)
+  ensures cos(x + 2.0*pi()) == cos(x)
 
 lemma {:axiom} cos_sub_pi(x: real)
-  ensures cos(x - pi) == -cos(x)
+  ensures cos(x - pi()) == -cos(x)
 
 lemma {:axiom} cos_sub_two_pi(x: real)
-  ensures cos(x - 2.0*pi) == cos(x)
+  ensures cos(x - 2.0*pi()) == cos(x)
 
 lemma {:axiom} one_le_pi_div_two()
-  ensures 1.0 <= pi/2.0
+  ensures 1.0 <= pi()/2.0
 
 lemma {:axiom} pi_div_two_le_two()
-  ensures pi/2.0 <= 2.0
+  ensures pi()/2.0 <= 2.0
 
 lemma {:axiom} pi_ne_zero()
-  ensures pi != 0.0
+  ensures pi() != 0.0

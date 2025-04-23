@@ -11,7 +11,7 @@ lemma mathd_numbertheory_135(n: nat, A: nat, B: nat, C: nat)
   requires 0 <= C <= 9
   requires A % 2 != 0
   requires C % 2 != 0
-  requires 3 % B != 0
+  requires B != 0 && 3 % B != 0
   requires digits(10, n) == [B,A,B,C,C,A,C,B,A]
   ensures 100*A + 10*B + C == 129
 {}

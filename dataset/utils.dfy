@@ -177,6 +177,7 @@ function {:axiom} abs(x: real): (r: real)
 
 function {:axiom} factorial(n: nat): (r: nat) 
   ensures if n == 0 then r == 1 else r == n * factorial(n-1)
+  ensures r > 0
 
 predicate {:axiom} prime(n: int) 
   ensures prime(n) <==> 2 <= n && forall m | 2 <= m < n :: n % m != 0
@@ -211,13 +212,22 @@ function {:axiom} logb(b: real, x: real): (l: real)
   ensures b == 0.0 ==> l == 0.0
   ensures b == 1.0 ==> l == 0.0
 
-function {:axiom} cos(x: real): real
+function {:verify false} cos(x: real): real
+  ensures -1.0 <= cos(x) <= 1.0
+  ensures cos(0.0) == 1.0
+  ensures cos(abs(x)) == cos(x)
+  ensures forall x1, x2 :: cos(x1+x2) == cos(x1)*cos(x2) - sin(x1)*sin(x2)
+  ensures forall x1, x2 :: cos(x1-x2) == cos(x1)*cos(x2) + sin(x1)*sin(x2)
+  ensures cos(pi()/2.0) == 0.0
+  ensures cos(pi()) == -1.0
+  ensures cos(2.0*pi()) == 1.0
 
-function {:axiom} sin(x: real): real
+function {:axiom} sin(x: real): (r: real)
 
-function {:axiom} tan(x: real): real
+function {:axiom} tan(x: real): (r: real)
 
-const {:axiom} pi: real
+function {:axiom} pi(): real
+  ensures cos(pi()) == -1.0
 
 predicate {:axiom} is_least(s: iset<nat>, l: nat)
   ensures is_least(s, l) <==> (l in s && forall a: nat | a in s :: l <= a)
@@ -225,9 +235,28 @@ predicate {:axiom} is_least(s: iset<nat>, l: nat)
 predicate {:axiom} is_greatest(s: iset<nat>, g: nat)
   ensures is_greatest(s, g) <==> (g in s && forall a: nat | a in s :: a <= g)
 
-function {:axiom} digits(b: int, n: int): seq<int>
+function {:axiom} digits(b: nat, n: nat): seq<nat>
+  ensures b == 0 ==> digits(b, n) == digits_aux_0(n)
+  ensures b == 1 ==> digits(b, n) == digits_aux_1(n)
+  ensures b >= 2 ==> digits(b, n) == digits_aux(b, n)
 
-function {:axiom} of_digits(b: int, xs: seq<int>): (n: int)
+function {:verify false} digits_aux(b: nat, n: nat): seq<nat>
+  requires 2 <= b
+  ensures if n == 0 then digits_aux(b, n) == [] else digits_aux(b, n) == [n % b] + digits_aux(b, n/b)
+
+function {:axiom} digits_aux_0(n: nat): seq<nat>
+  ensures if n == 0 then digits_aux_0(n) == [] else digits_aux_0(n) == [n]
+
+function {:axiom} digits_aux_1(n: nat): seq<nat>
+  ensures digits_aux_1(n) == replicate(n, 1)
+
+function {:axiom} replicate<T>(n: nat, x: T): seq<T>
+  ensures if n == 0 then replicate(n, x) == [] else replicate(n, x) == [x] + replicate(n-1, x)
+
+function {:verify false} of_digits(b: nat, xs: seq<nat>): nat
+  ensures if |xs| == 0 then of_digits(b, xs) == 0 else of_digits(b, xs) == xs[0] + b*of_digits(b, xs[1..])
+  ensures forall n :: of_digits(b, digits(b, n)) == n
+  ensures forall n :: of_digits(b, [n]) == n
 
 function {:axiom} divisors(n: int): (s: set<int>)
   ensures forall x | x != 0 :: x in s <==> n % x == 0
