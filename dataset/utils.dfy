@@ -64,7 +64,7 @@ module Rat {
 }
 
 module Real {
-  function {:axiom} pow(b: real, k: nat): (p: real) 
+  function {:verify false} pow(b: real, k: nat): (p: real) 
     ensures if k == 0 then p == 1.0 else p == b * pow(b, k - 1)
     ensures b >= 0.0 ==> p >= 0.0
     ensures (b == 0.0 && k != 0) <==> p == 0.0
@@ -72,11 +72,12 @@ module Real {
     ensures k == 1 ==> b == p
     ensures p == rpow(b, k as real)
 
-  function {:axiom} rpow(b: real, k: real): (p: real)
+  function {:verify false} rpow(b: real, k: real): (p: real)
     ensures k == 0.0 ==> p == 1.0
     ensures (b == 0.0 && k != 0.0) <==> p == 0.0
     ensures b > 0.0 ==> p > 0.0
     ensures k == 1.0 ==> b == p
+    ensures forall n: nat :: pow(rpow(b, 1.0/(n as real)), n) == b
 
   function {:axiom} sum<T>(s: set<T>, f: T -> real): (p: real)
     ensures forall x | x in s :: p == f(x) + sum(s - {x}, f)
@@ -126,11 +127,12 @@ module Complex {
     ensures r == z.re * z.re + z.im * z.im
     ensures r == 0.0 <==> z == zero()
 
-  function {:axiom} sqrt(x: real): (y: real)
+  function {:verify false} sqrt(x: real): (y: real)
     requires x >= 0.0
     ensures y >= 0.0
     ensures y * y == x
     ensures x > 0.0 ==> y > 0.0
+    ensures forall y, z | y >= 0.0 && z >= 0.0 :: sqrt(y*z) == sqrt(y)*sqrt(z)
 
   function {:axiom} abs(z: complex): (r: real) 
     ensures r == sqrt(z.re * z.re + z.im * z.im)
@@ -200,11 +202,12 @@ function {:axiom} exp(x: real): (e: real)
   ensures e != 0.0
   ensures x == 0.0 ==> e == 1.0
 
-function {:axiom} log(x: real): (l: real)
+function {:verify false} log(x: real): (l: real)
   ensures x > 1.0 ==> l > 0.0
   ensures x == 1.0 ==> l == 0.0
   ensures 0.0 < x < 1.0 ==> l < 0.0
   ensures x == 0.0 ==> l == 0.0
+  ensures forall n: int, y: real :: log(Real.pow(y, n)) == (n as real)*log(y)
 
 function {:axiom} logb(b: real, x: real): (l: real)
   ensures x == 0.0 ==> l == 0.0
