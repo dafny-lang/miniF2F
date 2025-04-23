@@ -78,6 +78,7 @@ module Real {
     ensures b > 0.0 ==> p > 0.0
     ensures k == 1.0 ==> b == p
     ensures forall n: nat :: pow(rpow(b, 1.0/(n as real)), n) == b
+    ensures forall x, y: real :: rpow(b, x/y) == rpow(rpow(b, 1.0/y), x)
 
   function {:axiom} sum<T>(s: set<T>, f: T -> real): (p: real)
     ensures forall x | x in s :: p == f(x) + sum(s - {x}, f)
