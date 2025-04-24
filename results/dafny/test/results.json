@@ -237,7 +237,7 @@
     },
     {
         "id": "dataset/test/mathd_algebra_208.dfy",
-        "result": "verified"
+        "result": "failed"
     },
     {
         "id": "dataset/test/amc12a_2009_p6.dfy",
@@ -333,7 +333,7 @@
     },
     {
         "id": "dataset/test/amc12a_2013_p4.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/mathd_algebra_440.dfy",
@@ -361,7 +361,7 @@
     },
     {
         "id": "dataset/test/mathd_algebra_293.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/amc12a_2020_p15.dfy",
@@ -373,7 +373,7 @@
     },
     {
         "id": "dataset/test/mathd_numbertheory_495.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/amc12b_2021_p4.dfy",
@@ -401,7 +401,7 @@
     },
     {
         "id": "dataset/test/mathd_numbertheory_296.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/mathd_algebra_484.dfy",
@@ -485,7 +485,7 @@
     },
     {
         "id": "dataset/test/algebra_bleqa_apbon2msqrtableqambsqon8b.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/mathd_numbertheory_34.dfy",
@@ -609,7 +609,7 @@
     },
     {
         "id": "dataset/test/imo_1959_p1.dfy",
-        "result": "verified"
+        "result": "failed"
     },
     {
         "id": "dataset/test/mathd_algebra_338.dfy",
@@ -677,7 +677,7 @@
     },
     {
         "id": "dataset/test/mathd_numbertheory_711.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/mathd_algebra_329.dfy",
@@ -693,7 +693,7 @@
     },
     {
         "id": "dataset/test/mathd_numbertheory_277.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/test/algebra_amgm_sum1toneqn_prod1tonleq1.dfy",
@@ -709,7 +709,7 @@
     },
     {
         "id": "dataset/test/mathd_algebra_288.dfy",
-        "result": "verified"
+        "result": "failed"
     },
     {
         "id": "dataset/test/imo_1992_p1.dfy",
