@@ -7,7 +7,7 @@ module Int {
     ensures (b == 0 && k != 0) <==> p == 0
     ensures b > 0 ==> p > 0
     ensures k == 1 ==> b == p
-    ensures b > 0 ==> forall x, y :: pow(b, x+y) == pow(b, x) * pow(b, y)
+    //ensures b > 0 ==> forall x, y :: pow(b, x+y) == pow(b, x) * pow(b, y)
 
   function {:axiom} prod<T>(s: set<T>, f: T -> int): (p: int)
     ensures forall x | x in s :: p == f(x) * prod(s - {x}, f)
@@ -72,20 +72,19 @@ module Real {
     ensures b > 0.0 ==> p > 0.0
     ensures k == 1 ==> b == p
     ensures p == rpow(b, k as real)
-    ensures b > 0.0 ==> forall x, y :: pow(b, x+y) == pow(b, x) * pow(b, y)
+    //ensures b > 0.0 ==> forall x, y :: pow(b, x+y) == pow(b, x) * pow(b, y)
 
   function {:verify false} rpow(b: real, k: real): (p: real)
     ensures k == 0.0 ==> p == 1.0
     ensures (b == 0.0 && k != 0.0) <==> p == 0.0
     ensures b > 0.0 ==> p > 0.0
     ensures k == 1.0 ==> b == p
-    ensures forall n: nat :: pow(rpow(b, 1.0/(n as real)), n) == b
-    ensures forall x, y: real :: rpow(b, x/y) == rpow(rpow(b, 1.0/y), x)
-    ensures b > 0.0 ==> forall x, y :: rpow(b, x+y) == rpow(b, x) * rpow(b, y)
-    ensures b > 0.0 ==> forall x, y :: rpow(b, x-y) == rpow(b, x) / rpow(b, y)
-    ensures forall x, y: real | x >= 0.0 && y >= 0.0 :: rpow(x*y, k) == rpow(x, k) * rpow(y, k)
-    ensures forall x, y: real | x >= 0.0 && y > 0.0 :: rpow(x/y, k) == rpow(x, k) / rpow(y, k)
-
+    //ensures forall n: nat :: pow(rpow(b, 1.0/(n as real)), n) == b
+    //ensures forall x, y: real :: rpow(b, x/y) == rpow(rpow(b, 1.0/y), x)
+    //ensures b > 0.0 ==> forall x, y :: rpow(b, x+y) == rpow(b, x) * rpow(b, y)
+    //ensures b > 0.0 ==> forall x, y :: rpow(b, x-y) == rpow(b, x) / rpow(b, y)
+    //ensures forall x, y: real | x >= 0.0 && y >= 0.0 :: rpow(x*y, k) == rpow(x, k) * rpow(y, k)
+    //ensures forall x, y: real | x >= 0.0 && y > 0.0 :: rpow(x/y, k) == rpow(x, k) / rpow(y, k)
 
   function {:axiom} sum<T>(s: set<T>, f: T -> real): (p: real)
     ensures forall x | x in s :: p == f(x) + sum(s - {x}, f)
@@ -130,6 +129,7 @@ module Complex {
 
   function {:axiom} pow(b: complex, k: nat): (p: complex) 
     ensures if k == 0 then p == one() else p == mul(b, pow(b, k - 1))
+    ensures b != zero() ==> p != zero()
 
   function {:axiom} norm_sq(z: complex): (r: real)
     ensures r == z.re * z.re + z.im * z.im
@@ -200,15 +200,15 @@ function {:axiom} gcd(x: nat, y: nat): nat
   ensures y % gcd(x, y) == 0
   ensures forall p: nat | p > 0 && x % p == 0 && y % p == 0 :: p <= gcd(x, y)
   ensures x > y ==> gcd(x, y) == gcd(x-y, y)
-  ensures y > x ==> gcd(x, y) == gcd(x, y-x)
-  ensures (x > 0 && y > 0) ==> gcd(x,y)*lcm(x,y) == x*y
+  //ensures y > x ==> gcd(x, y) == gcd(x, y-x)
 
-function {:axiom} lcm(x: nat, y: nat): (lcm: nat)
+function {:axiom} lcm(x: nat, y: nat): nat
   requires x > 0 && y > 0
-  ensures lcm > 0
-  ensures lcm % x == 0
-  ensures lcm % y == 0
-  ensures forall p: nat | p > 0 && p % x == 0 && p % y == 0 :: lcm <= p
+  ensures lcm(x, y) > 0
+  ensures lcm(x, y) % x == 0
+  ensures lcm(x, y) % y == 0
+  ensures forall p: nat | p > 0 && p % x == 0 && p % y == 0 :: lcm(x, y) <= p
+  ensures gcd(x,y)*lcm(x,y) == x*y
 
 function {:axiom} exp(x: real): (e: real)
   ensures e != 0.0
