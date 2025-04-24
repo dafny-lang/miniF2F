@@ -89,7 +89,7 @@
     },
     {
         "id": "dataset/valid/amc12b_2003_p6.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/valid/mathd_algebra_568.dfy",
@@ -173,7 +173,7 @@
     },
     {
         "id": "dataset/valid/mathd_algebra_547.dfy",
-        "result": "verified"
+        "result": "failed"
     },
     {
         "id": "dataset/valid/amc12a_2017_p7.dfy",
@@ -329,7 +329,7 @@
     },
     {
         "id": "dataset/valid/mathd_algebra_536.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/valid/mathd_numbertheory_640.dfy",
@@ -433,7 +433,7 @@
     },
     {
         "id": "dataset/valid/mathd_algebra_282.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/valid/algebra_amgm_sumasqdivbsqgeqsumbdiva.dfy",
@@ -461,7 +461,7 @@
     },
     {
         "id": "dataset/valid/imo_1964_p1_2.dfy",
-        "result": "verified"
+        "result": "failed"
     },
     {
         "id": "dataset/valid/numbertheory_prmdvsneqnsqmodpeq0.dfy",
@@ -613,7 +613,7 @@
     },
     {
         "id": "dataset/valid/aime_1990_p2.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/valid/amc12_2000_p5.dfy",
@@ -689,7 +689,7 @@
     },
     {
         "id": "dataset/valid/algebra_apb4leq8ta4pb4.dfy",
-        "result": "failed"
+        "result": "verified"
     },
     {
         "id": "dataset/valid/mathd_numbertheory_101.dfy",
@@ -969,6 +969,6 @@
     },
     {
         "id": "dataset/valid/mathd_numbertheory_188.dfy",
-        "result": "failed"
+        "result": "verified"
     }
 ]
