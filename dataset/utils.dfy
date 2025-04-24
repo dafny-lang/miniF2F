@@ -1,12 +1,13 @@
 /* DEFINITIONS */  
 
 module Int {
-  function {:axiom} pow(b: int, k: nat): (p: int) 
+  function {:verify false} pow(b: int, k: nat): (p: int) 
     ensures if k == 0 then p == 1 else p == b * pow(b, k - 1)
     ensures b >= 0 ==> p >= 0
     ensures (b == 0 && k != 0) <==> p == 0
     ensures b > 0 ==> p > 0
     ensures k == 1 ==> b == p
+    ensures b > 0 ==> forall x, y :: pow(b, x+y) == pow(b, x) * pow(b, y)
 
   function {:axiom} prod<T>(s: set<T>, f: T -> int): (p: int)
     ensures forall x | x in s :: p == f(x) * prod(s - {x}, f)
@@ -71,6 +72,7 @@ module Real {
     ensures b > 0.0 ==> p > 0.0
     ensures k == 1 ==> b == p
     ensures p == rpow(b, k as real)
+    ensures b > 0.0 ==> forall x, y :: pow(b, x+y) == pow(b, x) * pow(b, y)
 
   function {:verify false} rpow(b: real, k: real): (p: real)
     ensures k == 0.0 ==> p == 1.0
@@ -79,6 +81,11 @@ module Real {
     ensures k == 1.0 ==> b == p
     ensures forall n: nat :: pow(rpow(b, 1.0/(n as real)), n) == b
     ensures forall x, y: real :: rpow(b, x/y) == rpow(rpow(b, 1.0/y), x)
+    ensures b > 0.0 ==> forall x, y :: rpow(b, x+y) == rpow(b, x) * rpow(b, y)
+    ensures b > 0.0 ==> forall x, y :: rpow(b, x-y) == rpow(b, x) / rpow(b, y)
+    ensures forall x, y: real | x >= 0.0 && y >= 0.0 :: rpow(x*y, k) == rpow(x, k) * rpow(y, k)
+    ensures forall x, y: real | x >= 0.0 && y > 0.0 :: rpow(x/y, k) == rpow(x, k) / rpow(y, k)
+
 
   function {:axiom} sum<T>(s: set<T>, f: T -> real): (p: real)
     ensures forall x | x in s :: p == f(x) + sum(s - {x}, f)
@@ -142,7 +149,7 @@ module Complex {
     ensures forall x | x in s :: p == add(f(x), sum(s - {x}, f))
 }
 
-function {:axiom} sqrt(x: real): (y: real)
+function {:verify false} sqrt(x: real): (y: real)
   ensures x <= 0.0 ==> y == 0.0
   ensures y >= 0.0
   ensures y * y == x
@@ -186,12 +193,15 @@ function {:axiom} factorial(n: nat): (r: nat)
 predicate {:axiom} prime(n: int) 
   ensures prime(n) <==> 2 <= n && forall m | 2 <= m < n :: n % m != 0
 
-function {:axiom} gcd(x: nat, y: nat): (gcd: nat)
+function {:axiom} gcd(x: nat, y: nat): nat
   requires x > 0 || y > 0
-  ensures gcd > 0
-  ensures x % gcd == 0
-  ensures y % gcd == 0
-  ensures forall p: nat | p > 0 && x % p == 0 && y % p == 0 :: p <= gcd
+  ensures gcd(x, y) > 0
+  ensures x % gcd(x, y) == 0
+  ensures y % gcd(x, y) == 0
+  ensures forall p: nat | p > 0 && x % p == 0 && y % p == 0 :: p <= gcd(x, y)
+  ensures x > y ==> gcd(x, y) == gcd(x-y, y)
+  ensures y > x ==> gcd(x, y) == gcd(x, y-x)
+  ensures (x > 0 && y > 0) ==> gcd(x,y)*lcm(x,y) == x*y
 
 function {:axiom} lcm(x: nat, y: nat): (lcm: nat)
   requires x > 0 && y > 0
