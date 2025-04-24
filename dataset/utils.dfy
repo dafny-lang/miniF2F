@@ -65,7 +65,7 @@ module Rat {
 }
 
 module Real {
-  function {:verify false} pow(b: real, k: nat): (p: real) 
+  function {:axiom} pow(b: real, k: nat): (p: real) 
     ensures if k == 0 then p == 1.0 else p == b * pow(b, k - 1)
     ensures b >= 0.0 ==> p >= 0.0
     ensures (b == 0.0 && k != 0) <==> p == 0.0
@@ -74,7 +74,7 @@ module Real {
     ensures p == rpow(b, k as real)
     //ensures b > 0.0 ==> forall x, y :: pow(b, x+y) == pow(b, x) * pow(b, y)
 
-  function {:verify false} rpow(b: real, k: real): (p: real)
+  function {:axiom} rpow(b: real, k: real): (p: real)
     ensures k == 0.0 ==> p == 1.0
     ensures (b == 0.0 && k != 0.0) <==> p == 0.0
     ensures b > 0.0 ==> p > 0.0
@@ -135,12 +135,12 @@ module Complex {
     ensures r == z.re * z.re + z.im * z.im
     ensures r == 0.0 <==> z == zero()
 
-  function {:verify false} sqrt(x: real): (y: real)
+  function {:axiom} sqrt(x: real): (y: real)
     ensures x <= 0.0 ==> y == 0.0
     ensures y >= 0.0
     ensures y * y == x
     ensures x > 0.0 ==> y > 0.0
-    ensures forall y, z | y >= 0.0 && z >= 0.0 :: sqrt(y*z) == sqrt(y)*sqrt(z)
+    //ensures forall y, z | y >= 0.0 && z >= 0.0 :: sqrt(y*z) == sqrt(y)*sqrt(z)
 
   function {:axiom} abs(z: complex): (r: real) 
     ensures r == sqrt(z.re * z.re + z.im * z.im)
@@ -149,12 +149,12 @@ module Complex {
     ensures forall x | x in s :: p == add(f(x), sum(s - {x}, f))
 }
 
-function {:verify false} sqrt(x: real): (y: real)
+function {:axiom} sqrt(x: real): (y: real)
   ensures x <= 0.0 ==> y == 0.0
   ensures y >= 0.0
   ensures y * y == x
   ensures x > 0.0 ==> y > 0.0
-  ensures forall y, z | y >= 0.0 && z >= 0.0 :: sqrt(y*z) == sqrt(y)*sqrt(z)
+  //ensures forall y, z | y >= 0.0 && z >= 0.0 :: sqrt(y*z) == sqrt(y)*sqrt(z)
 
 function {:axiom} icc<T>(s: set<T>, t: set<T>): (r: set<set<T>>)
   ensures r == set x | s <= x <= t
@@ -214,12 +214,12 @@ function {:axiom} exp(x: real): (e: real)
   ensures e != 0.0
   ensures x == 0.0 ==> e == 1.0
 
-function {:verify false} log(x: real): (l: real)
+function {:axiom} log(x: real): (l: real)
   ensures x > 1.0 ==> l > 0.0
   ensures x == 1.0 ==> l == 0.0
   ensures 0.0 < x < 1.0 ==> l < 0.0
   ensures x == 0.0 ==> l == 0.0
-  ensures forall n: int, y: real :: log(Real.pow(y, n)) == (n as real)*log(y)
+  //ensures forall n: int, y: real :: log(Real.pow(y, n)) == (n as real)*log(y)
 
 function {:axiom} logb(b: real, x: real): (l: real)
   ensures x == 0.0 ==> l == 0.0
@@ -227,15 +227,15 @@ function {:axiom} logb(b: real, x: real): (l: real)
   ensures b == 0.0 ==> l == 0.0
   ensures b == 1.0 ==> l == 0.0
 
-function {:verify false} cos(x: real): real
+function {:axiom} cos(x: real): real
   ensures -1.0 <= cos(x) <= 1.0
-  ensures cos(0.0) == 1.0
-  ensures cos(abs(x)) == cos(x)
-  ensures forall x1, x2 :: cos(x1+x2) == cos(x1)*cos(x2) - sin(x1)*sin(x2)
-  ensures forall x1, x2 :: cos(x1-x2) == cos(x1)*cos(x2) + sin(x1)*sin(x2)
-  ensures cos(pi()/2.0) == 0.0
-  ensures cos(pi()) == -1.0
-  ensures cos(2.0*pi()) == 1.0
+  //ensures cos(0.0) == 1.0
+  //ensures cos(abs(x)) == cos(x)
+  //ensures forall x1, x2 :: cos(x1+x2) == cos(x1)*cos(x2) - sin(x1)*sin(x2)
+  //ensures forall x1, x2 :: cos(x1-x2) == cos(x1)*cos(x2) + sin(x1)*sin(x2)
+  //ensures cos(pi()/2.0) == 0.0
+  //ensures cos(pi()) == -1.0
+  //ensures cos(2.0*pi()) == 1.0
 
 function {:axiom} sin(x: real): (r: real)
 
