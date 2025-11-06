@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_numbertheory_403()
   ensures Int.sum(divisors(198), k => k) == 270

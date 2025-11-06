@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_manipexpr_apbeq2cceqiacpbceqm2(a: complex, b: complex, c: complex)
   requires Complex.add(a, b) == Complex.mul(Complex.of_real(2.0), c)

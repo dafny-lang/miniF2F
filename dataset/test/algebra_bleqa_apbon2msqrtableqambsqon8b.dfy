@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_bleqa_apbon2msqrtableqambsqon8b(a: real, b: real)
   requires 0.0 < a

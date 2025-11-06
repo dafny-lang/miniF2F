@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_amgm_faxinrrp2msqrt2geq2mxm1div2x(x: real)
   requires x > 0.0

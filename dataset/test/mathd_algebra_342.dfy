@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_342(a: real, d: real)
   requires Real.sum(range(5), k => a+(k as real)*d) == 70.0

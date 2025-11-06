@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_126(x: real, y: real)
   requires 2.0 * 3.0 == x - 9.0

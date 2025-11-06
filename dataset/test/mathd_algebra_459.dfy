@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_459(a: rat, b: rat, c: rat, d: rat)
   requires Rat.eq(Rat.mul(Rat.of_int(3),a), Rat.add(Rat.add(b,c),d))

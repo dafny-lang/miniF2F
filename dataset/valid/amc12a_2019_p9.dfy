@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2019_p9(a: nat -> rat)
   requires Rat.eq(a(1), Rat.of_int(1))

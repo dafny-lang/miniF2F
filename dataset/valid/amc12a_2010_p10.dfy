@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2010_p10(p: real, q: real, a: nat -> real)
   requires forall n: nat :: a(n+2) - a(n+1) == a(n+1) - a(n)

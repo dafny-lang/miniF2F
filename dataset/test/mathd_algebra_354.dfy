@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_354(a: real, d: real)
   requires a + 6.0*d == 30.0

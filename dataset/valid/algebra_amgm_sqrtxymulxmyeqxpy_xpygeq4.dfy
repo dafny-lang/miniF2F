@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_amgm_sqrtxymulxmyeqxpy_xpygeq4(x: real, y: real)
   requires 0.0 < x

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_206(a: real, b: real, f: real -> real)
   requires forall x :: f(x) == x*x + a*x + b

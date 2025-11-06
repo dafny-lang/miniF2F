@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_2varlineareq_fp3zeq11_3tfm1m5zeqn68_feqn10_zeq7(f: complex, z: complex)
   requires Complex.add(f, Complex.mul(Complex.of_real(3.0), z)) == Complex.of_real(11.0)

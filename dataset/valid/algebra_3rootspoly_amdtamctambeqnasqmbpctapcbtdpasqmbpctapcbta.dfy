@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_3rootspoly_amdtamctambeqnasqmbpctapcbtdpasqmbpctapcbta(b: complex, c: complex, d: complex, a: complex)
   ensures 

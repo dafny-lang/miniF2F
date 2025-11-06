@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_35(p: real -> real, q: real -> real)
   requires forall x :: p(x) == 2.0 - x*x

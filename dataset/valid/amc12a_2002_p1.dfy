@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2002_p1(f: complex -> complex, s: set<complex>)
   requires 

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1982_p1(f: nat -> nat)
   requires forall m: nat, n: nat | 0 < m && 0 < n :: f(m+n)-f(m)-f(n) == 0 || f(m+n)-f(m)-f(n) == 1

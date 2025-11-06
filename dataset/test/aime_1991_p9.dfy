@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1991_p9(x: real, m: rat)
   requires cos(x) != 0.0

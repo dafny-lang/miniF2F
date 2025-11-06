@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1984_p7(f: int -> int)
   requires forall n: int | 1000 <= n :: f(n) == n-3

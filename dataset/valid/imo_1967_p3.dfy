@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1967_p3(k: nat, m: nat, n: nat, c: nat -> nat)
   requires 0 < k

@@ -1,0 +1,4 @@
+boto3>=1.26.0
+botocore>=1.29.0
+ollama>=0.1.0
+tqdm>=4.64.0

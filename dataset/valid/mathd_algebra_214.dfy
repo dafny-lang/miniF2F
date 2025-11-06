@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_214(a: real, f: real -> real)
   requires forall x :: f(x) == a*(x-2.0)*(x-2.0) + 3.0

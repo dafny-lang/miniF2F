@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aimeII_2020_p6(t: nat -> rat)
   requires t(1) == Rational(20, 1)

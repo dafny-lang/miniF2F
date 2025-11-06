@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12_2000_p12(a: nat, m: nat, c: nat)
   requires a + m + c == 12

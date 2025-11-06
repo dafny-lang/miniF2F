@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 // issue with bracketing
 lemma mathd_numbertheory_126(x: nat, a: nat)

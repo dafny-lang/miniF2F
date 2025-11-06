@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2016_p3(f: real -> real -> real)
   requires forall x, y | y != 0.0 :: f(x)(y) == x - y * x / y

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1989_p8(a: real, b: real, c: real, d: real, e: real, f: real, g: real)
   requires a + 4.0*b + 9.0*c + 16.0*d + 25.0*e + 36.0*f + 49.0*g == 1.0

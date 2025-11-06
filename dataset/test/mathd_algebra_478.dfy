@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_478(b: real, h: real, v: real)
   requires 0.0 < b && 0.0 < h && 0.0 < v

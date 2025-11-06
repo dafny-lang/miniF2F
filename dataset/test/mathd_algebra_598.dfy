@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_598(a: real, b: real, c: real, d: real)
   requires Real.rpow(4.0, a) == 5.0

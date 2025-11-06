@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_amgm_sumasqdivbgeqsuma(a: real, b: real, c: real, d: real)
   requires 0.0 < a

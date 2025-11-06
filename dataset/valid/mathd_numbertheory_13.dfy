@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_numbertheory_13(u: nat, v: nat, s: iset<nat>)
   requires forall n: nat :: n in s <==> (0 < n && ((14*n)%100 == 46))

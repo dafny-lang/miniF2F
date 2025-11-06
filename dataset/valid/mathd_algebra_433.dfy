@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 // added x >= 3.5
 lemma mathd_algebra_433(f: real -> real)

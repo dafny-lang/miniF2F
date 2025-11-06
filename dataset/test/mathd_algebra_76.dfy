@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_76(f: int -> int)
   requires forall n | n % 2 == 1 :: f(n) == n*n

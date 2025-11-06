@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1974_p5(a: real, b: real, c: real, d: real, s: real)
   requires a+b+d != 0.0 // added manually

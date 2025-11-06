@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1969_p2(m: real, n: real, k: nat, a: nat -> real, f: real -> real)
   requires 0 < k

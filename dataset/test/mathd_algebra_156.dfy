@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_156(x: real, y: real, f: real -> real, g: real -> real)
   requires forall t :: f(t) == t*t*t*t

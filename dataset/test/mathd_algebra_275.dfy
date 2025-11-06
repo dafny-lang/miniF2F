@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_275(x: real)
   requires Real.rpow(Real.rpow(11.0, 1.0/(4 as real)), 3.0*x - 3.0) == 1.0/5.0

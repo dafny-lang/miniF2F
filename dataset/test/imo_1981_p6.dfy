@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1981_p6(f: nat -> nat -> nat)
   requires forall y: nat :: f(0)(y) == y + 1

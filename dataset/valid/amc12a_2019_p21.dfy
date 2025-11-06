@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2019_p21(z: complex)
   requires z == Complex.div(Complex.add(Complex.one(), Complex.i()), Complex.of_real(sqrt(2.0)))

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1977_p5(a: nat, b: nat, q: nat, r: nat)
   requires r < a + b

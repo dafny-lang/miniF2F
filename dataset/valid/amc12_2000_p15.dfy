@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12_2000_p15(f: complex -> complex, s: set<complex>)
   requires forall x: complex :: f(Complex.div(x, Complex.of_real(3.0))) == Complex.add(Complex.add(Complex.mul(x, x), x), Complex.one())

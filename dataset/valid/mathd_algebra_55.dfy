@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_55(q: real, p: real)
   requires q == 2.0 - 4.0 + 6.0 - 8.0 + 10.0 - 12.0 + 14.0

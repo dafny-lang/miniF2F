@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma numbertheory_2pownm1prime_nprime(n: nat)
   requires 0 < n

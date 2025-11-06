@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1985_p6(f: nat -> real -> real)
   requires forall x: real | x >= 0.0 :: f(1)(x) == x as real

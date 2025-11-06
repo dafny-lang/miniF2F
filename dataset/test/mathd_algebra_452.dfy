@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_452(a: nat -> real)
   requires forall n: nat {:trigger a(n)} :: a(n+2) - a(n+1) == a(n+1) - a(n)

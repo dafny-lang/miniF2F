@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_215(s: set<real>)
   requires forall x :: x in s <==> (x+3.0)*(x+3.0) == 121.0

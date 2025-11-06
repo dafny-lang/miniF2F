@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12_2001_p2(a: nat, b: nat, n: nat)
   requires 1 <= a <= 9

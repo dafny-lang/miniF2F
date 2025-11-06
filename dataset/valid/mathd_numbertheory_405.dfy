@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_numbertheory_405(a: nat, b: nat, c: nat, t: nat -> nat)
   requires t(0) == 0

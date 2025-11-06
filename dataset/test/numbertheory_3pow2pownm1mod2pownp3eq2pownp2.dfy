@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma numbertheory_3pow2pownm1mod2pownp3eq2pownp2(n: nat)
   requires 0 < n

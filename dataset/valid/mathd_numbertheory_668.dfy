@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_numbertheory_668(l: int, r: int, inv2: int, inv3: int)
   requires 0 <= l < 7

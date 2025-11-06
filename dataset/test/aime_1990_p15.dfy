@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1990_p15(a: real, b: real, x: real, y: real)
   requires a * x + b * y == 3.0

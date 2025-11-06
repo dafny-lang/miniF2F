@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma numbertheory_nckeqnm1ckpnm1ckm1(n: nat, k: nat)
   requires 0 < n

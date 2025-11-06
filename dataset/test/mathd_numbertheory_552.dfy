@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_numbertheory_552(f: nat -> nat, g: nat -> nat, h: nat -> nat, range_of_h: set<nat>)
   requires forall x: nat :: f(x) == 12*x + 7

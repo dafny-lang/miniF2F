@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2008_p25(a: nat -> real, b: nat -> real)
   requires forall n: nat :: a(n+1) == sqrt(3.0 * a(n) - b(n))

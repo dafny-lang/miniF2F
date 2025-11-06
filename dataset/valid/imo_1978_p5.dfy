@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1978_p5(n: nat, a: nat -> nat)
   requires forall m :: 0 < a(m)

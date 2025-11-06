@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma numbertheory_aoddbdiv4asqpbsqmod8eq1(a: int, b: nat)
   requires a % 2 == 1

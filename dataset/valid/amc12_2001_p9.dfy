@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12_2001_p9(f: real -> real)
   requires forall x,y | x > 0.0 && y > 0.0 :: f(x*y) == f(x)/y

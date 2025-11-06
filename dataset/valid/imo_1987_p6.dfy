@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1987_p6(p: nat, f: nat -> nat)
   requires forall x: nat :: f(x) == x*x + x + p

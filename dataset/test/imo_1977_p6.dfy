@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1977_p6(f: nat -> nat)
   requires forall n: nat :: 0 < f(n)

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_148(c: real, f: real -> real)
   requires forall x :: f(x) == c*x*x*x - 9.0*x + 3.0

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_cubrtrp1oncubrtreq3_rcubp1onrcubeq5778(r: real)
   requires r != 0.0

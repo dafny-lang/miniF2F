@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_numbertheory_42(s: iset<nat>, u: nat, v: nat)
   requires forall a: nat :: a in s <==> (0 < a && ((27*a)%40 == 17))

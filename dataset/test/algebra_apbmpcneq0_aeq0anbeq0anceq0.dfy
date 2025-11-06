@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_apbmpcneq0_aeq0anbeq0anceq0(a: rat, b: rat, c: rat, m: real, n: real)
   requires 0.0 < m

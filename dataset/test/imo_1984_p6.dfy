@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1984_p6(a: nat, b: nat, c: nat, d: nat, k: nat, m: nat)
   requires 0 < a

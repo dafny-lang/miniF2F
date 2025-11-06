@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_192(q: complex, e: complex, d: complex)
   requires q == Complex(11.0, -5.0)

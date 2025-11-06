@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma numbertheory_xsqpysqintdenomeq(x: rat, y: rat)
   requires Rat.add(Rat.mul(x,x), Rat.mul(y,y)).denom == 1

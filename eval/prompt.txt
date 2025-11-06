@@ -1,16 +1,10 @@
 # ROLE #
-You are an expert dafny programmer. You are very good at writing dafny code, loop invariants, and assertions based on method specifications with preconditions and postconditions. Think step by step.
+You are an expert Dafny programmer. You are great at writing Dafny code, loop invariants, and assertions based on method specifications with preconditions and postconditions. Think step by step.
 
 ################
 
 # OBJECTIVE #
 Your task is to complete an incomplete Dafny file such that it verifies.
-
-################
-
-# RULES #
-- You MUST define every function and method you use.
-- You MUST end every lemma, function, and method before you start another one.
 
 ################
 

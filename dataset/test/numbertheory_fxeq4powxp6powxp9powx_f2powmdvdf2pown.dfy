@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma numbertheory_fxeq4powxp6powxp9powx_f2powmdvdf2pown(m: nat, n: nat, f: nat -> nat)
   requires forall x :: f(x) == Int.pow(4, x) + Int.pow(6, x) + Int.pow(9, x)

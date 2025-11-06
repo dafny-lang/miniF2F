@@ -1,8 +1,10 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1988_p3(x: real)
   requires 0.0 < x
   requires logb(2.0, logb(8.0, x)) == logb(8.0, logb(2.0, x))
+  ensures Real.pow(logb(2.0, x), 2) == 27.0
 {}

@@ -1,0 +1,80 @@
+# ROLE #
+You are an expert Dafny programmer specializing in formal verification, proof construction, mathematical reasoning and proof hint infilling.
+
+# OBJECTIVE #
+Complete the proof body of the given incomplete Dafny lemma to make it verify successfully. The lemma currently has an empty body `{{}}` that you must replace with a complete, verifying proof.
+
+# AVAILABLE RESOURCES #
+
+## definitions.dfy file content:
+{definitions_file_content}
+
+## library.dfy file content:
+{libraries_file_content}
+
+# TASK REQUIREMENTS #
+
+You will receive an incomplete Dafny file containing a lemma with:
+- A complete signature (name and parameters)
+- Complete `requires` clauses (preconditions)
+- Complete `ensures` clauses (postconditions)
+- An empty body `{{}}` that needs to be filled
+
+Your task is to replace the empty body with a complete proof that satisfies all postconditions.
+
+# CRITICAL RULES #
+
+1. **PRESERVE SPECIFICATION**: You MUST preserve the exact lemma signature and all `requires` clauses. Do NOT add, remove, or modify any `requires` clauses.
+
+2. **ENSURES CLAUSES**: The `ensures` clauses MUST all be preserved. You MAY add additional `ensures` clauses if they may aid with verification but this is not encouraged.
+
+3. **COMPLETE IMPLEMENTATION**: Provide a complete proof body. This may include:
+   - Assertions to guide the verifier
+   - Calc statements for step-by-step reasoning
+   - Calls to helper lemmas (from library.dfy or your own)
+   - Loop invariants
+   - Case analysis or proof by contradiction
+
+4. **USE AVAILABLE RESOURCES**: Leverage functions and lemmas from definitions.dfy and library.dfy without redefining them. They are already imported via `include "../definitions.dfy"` and `include "../library.dfy"`.
+
+5. **DEFINE HELPERS IF NEEDED**: If you need helper lemmas or functions not available in the provided files, define them within your solution.
+
+6. **NO ASSUME OR AXIOM ATTRIBUTES**: You may NOT use the `assume` statement or `{:axiom}` attribute anywhere in your solution. All auxiliary lemmas MUST include complete proofs.
+
+7. **PROVE ALL CLAIMS**: If you reference mathematical results, theorems, or inequalities (e.g. Cauchy-Schwarz inequality, AM-GM, Schur's Inequality etc.) that are not present in the definitions.dfy or library.dfy files, you MUST prove them yourself within your solution. Do NOT rely on "classical results" or "known theorems" without providing a complete formal proof in Dafny.
+
+8. **EXPLICIT TRIGGERS FOR QUANTIFIERS**: You MUST add explicit triggers to all quantifiers (forall/exists) where they are not automatically synthesized by Dafny. Use the `{:trigger}` attribute to specify triggers that help guide the verifier's instantiation of quantified variables.
+
+# PROOF STRATEGIES #
+
+Consider these approaches when constructing your proof:
+- **Direct proof**: Use assertions and calc statements to show the postcondition follows from preconditions
+- **Calc statements**: Use `calc` blocks for step-by-step algebraic calculations and equational reasoning - this is especially useful for mathematical proofs involving arithmetic, logarithms, or algebraic manipulations
+- **Case analysis**: Split the proof into cases based on conditions
+- **Induction**: For properties involving natural numbers or recursive structures
+- **Contradiction**: Assume the negation and derive a contradiction
+- **Helper lemmas**: Break complex proofs into smaller, manageable pieces
+- **Verifier hints**: Add strategic assertions to guide Dafny's automated reasoning
+
+The complete file must include:
+- The original `include` statement
+- The complete lemma with your proof body
+- Any helper lemmas or functions you define
+
+# INPUT FORMAT
+```dafny
+<INCOMPLETE_FILE_CONTENT>
+```
+
+# RESPONSE FORMAT #
+
+Reason step-by-step first and then, provide the complete Dafny file in this exact format:
+```dafny
+<COMPLETE_FILE_CONTENT>
+```
+
+---
+
+```dafny
+{incomplete_dafny_file_content}
+```

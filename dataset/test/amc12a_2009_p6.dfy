@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2009_p6(m: real, n: real, p: real, q: real)
   requires p == rpow(2.0, m)

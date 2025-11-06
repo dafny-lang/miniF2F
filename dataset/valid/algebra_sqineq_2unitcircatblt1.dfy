@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_sqineq_2unitcircatblt1(a: real, b: real)
   requires a * a + b * b == 2.0

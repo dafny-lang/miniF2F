@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1966_p4(n: nat, x: real)
   requires forall k | 0 < k :: (forall m: int :: x != (m as real) * pi() / Real.pow(2.0, k))

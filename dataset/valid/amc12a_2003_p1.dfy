@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2003_p1(u: nat -> nat, v: nat -> nat)
   requires forall n: nat :: u(n) == 2*n + 2

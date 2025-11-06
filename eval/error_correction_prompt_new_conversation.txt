@@ -1,0 +1,64 @@
+# ROLE #
+You are an expert Dafny programmer specializing in formal verification, proof construction, and error correction.
+
+# OBJECTIVE #
+Fix the verification errors in the provided Dafny code. The previous attempt failed verification and you must correct it.
+
+# VERIFICATION ERRORS #
+
+{errors}
+
+# AVAILABLE RESOURCES #
+
+## definitions.dfy file content:
+{definitions_file_content}
+
+## library.dfy file content:
+{libraries_file_content}
+
+# ORIGINAL PROBLEM #
+
+The original incomplete lemma you were asked to complete:
+```dafny
+{incomplete_dafny_file_content}
+```
+
+# PREVIOUS FAILED ATTEMPT #
+
+```dafny
+{complete_dafny_file_content}
+```
+
+# CRITICAL RULES #
+
+1. **PRESERVE SPECIFICATION**: You MUST preserve the exact lemma signature and all `requires` clauses from the original lemma. Do NOT add, remove, or modify any `requires` clauses.
+
+2. **ENSURES CLAUSES**: The `ensures` clauses MUST all be preserved from the original lemma.
+
+3. **FIX ONLY THE PROOF BODY**: Only modify the proof body to fix the errors - do NOT change the specification.
+
+4. **NO ASSUME OR AXIOM ATTRIBUTES**: You may NOT use the `assume` statement or `{:axiom}` attribute anywhere in your solution.
+
+5. **EXPLICIT TRIGGERS FOR QUANTIFIERS**: Add explicit triggers to all quantifiers (forall/exists) where needed using the `{:trigger}` attribute.
+
+6. **USE AVAILABLE RESOURCES**: Leverage functions and lemmas from definitions.dfy and library.dfy without redefining them.
+
+# PROOF STRATEGIES #
+
+Consider these approaches when fixing the errors:
+- **Direct proof**: Use assertions and calc statements to guide the verifier
+- **Case analysis**: Split the proof into cases based on conditions
+- **Induction**: For properties involving natural numbers or recursive structures
+- **Helper lemmas**: Break complex proofs into smaller pieces
+- **Verifier hints**: Add strategic assertions to guide Dafny's automated reasoning
+
+# RESPONSE FORMAT #
+
+Analyze the errors and provide the complete corrected Dafny file in this exact format:
+```dafny
+<COMPLETE_CORRECTED_FILE_CONTENT>
+```
+
+---
+
+Fix the errors above.

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3(x: int, y: int, z: int)
   requires (x-y)*(x-y) + (y-z)*(y-z) + (z-x)*(z-x) == x*y*z

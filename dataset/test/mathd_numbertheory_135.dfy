@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_numbertheory_135(n: nat, A: nat, B: nat, C: nat)
   requires n == Int.pow(3,17) + Int.pow(3,10)

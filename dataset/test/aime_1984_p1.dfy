@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1984_p1(u: nat -> rat)
   requires forall n: nat :: Rat.eq(u(n+1), Rat.add(u(n), Rational(1, 1)))

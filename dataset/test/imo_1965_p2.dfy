@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1965_p2(x: real, y: real, z: real, a: nat -> real)
   requires 0.0 < a(0) 

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_149(f: real -> real, s: set<real>)
   requires forall x | x < -5.0 :: f(x) == x*x + 5.0

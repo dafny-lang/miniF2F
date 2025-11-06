@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_116(k: real, x: real)
   requires x == (13.0 - sqrt(131.0)) / 4.0

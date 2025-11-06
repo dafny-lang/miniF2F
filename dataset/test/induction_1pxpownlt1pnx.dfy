@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma induction_1pxpownlt1pnx(x: real, n: nat)
   requires -1.0 < x

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1962_p4(s: iset<real>)
   requires s == iset x: real | cos(x)*cos(x) + cos(2.0*x)*cos(2.0*x) + cos(3.0*x)*cos(3.0*x) == 1.0

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_apbon2pownleqapownpbpowon2(a: real, b: real, n: nat)
   requires 0.0 < a 

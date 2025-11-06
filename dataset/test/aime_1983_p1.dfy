@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1983_p1(x: nat, y: nat, z: nat, w: nat)
   requires 1 < x

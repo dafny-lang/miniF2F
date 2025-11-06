@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_2007_p6(f: nat -> real)
   requires Real.sum(range(100), x => f(x+1)*f(x+1)) == 1.0

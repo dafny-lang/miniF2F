@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2021_p22(a: real, b: real, c: real, f: real -> real)
   requires forall x :: f(x) == x*x*x + a*x*x + b*x + c

@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma imo_1961_p1(x: real, y: real, z: real, a: real, b: real)
   requires 0.0 < x

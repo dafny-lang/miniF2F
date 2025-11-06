@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_107(x: real, y: real)
   requires x*x + 8.0*x + y*y - 6.0*y == 0.0

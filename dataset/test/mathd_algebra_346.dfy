@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_346(f: real -> real, g: real -> real)
   requires forall x :: f(x) == 2.0*x - 3.0

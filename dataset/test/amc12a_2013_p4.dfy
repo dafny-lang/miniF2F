@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2013_p4()
   ensures Real.pow(2.0,2014) != Real.pow(2.0,2012)

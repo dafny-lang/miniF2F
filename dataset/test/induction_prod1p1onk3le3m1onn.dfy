@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma induction_prod1p1onk3le3m1onn(n: nat)
   requires 0 < n

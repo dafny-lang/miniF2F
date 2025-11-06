@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma induction_seq_mul2pnp1(n: nat, u: nat -> nat)
   requires u(0) == 0

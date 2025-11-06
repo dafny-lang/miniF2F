@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_388(x: real, y: real, z: real)
   requires 3.0*x + 4.0*y - 12.0*z == 10.0

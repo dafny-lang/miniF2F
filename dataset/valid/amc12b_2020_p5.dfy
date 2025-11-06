@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12b_2020_p5(a: nat, b: nat)
   requires 5.0/8.0 * (b as real) == 2.0/3.0 * (a as real) + 7.0

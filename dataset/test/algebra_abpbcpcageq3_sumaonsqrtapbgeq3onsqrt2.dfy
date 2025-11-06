@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_abpbcpcageq3_sumaonsqrtapbgeq3onsqrt2(a: real, b: real, c: real)
   requires 0.0 < a 

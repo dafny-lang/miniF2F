@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_421(a: real, b: real, c: real, d: real)
   requires b == a*a + 4.0 * a + 6.0

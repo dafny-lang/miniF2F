@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma mathd_algebra_15(s: nat -> nat -> nat)
   requires forall a, b | 0 < a && 0 < b :: s(a)(b) == Int.pow(a, b) + Int.pow(b, a)

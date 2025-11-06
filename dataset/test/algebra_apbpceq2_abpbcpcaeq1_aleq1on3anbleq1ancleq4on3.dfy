@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebra_apbpceq2_abpbcpcaeq1_aleq1on3anbleq1ancleq4on3(a: real, b: real, c: real)
   requires a <= b <= c

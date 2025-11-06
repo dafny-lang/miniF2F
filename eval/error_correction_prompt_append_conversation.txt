@@ -1,0 +1,20 @@
+Your code failed Dafny verification with the following errors:
+
+{errors}
+
+Reminder - the original lemma you need to complete is:
+```dafny
+{incomplete_dafny_file_content}
+```
+
+Please fix these errors and provide the complete corrected Dafny file. CRITICAL:
+- You MUST preserve the exact lemma signature and all `requires` clauses from the original lemma above
+- You MUST keep all `ensures` clauses from the original lemma above
+- Only the proof body should be modified - do NOT change the specification
+- Do NOT use `assume` statements or `{:axiom}` attributes
+- Add explicit triggers to quantifiers where needed
+
+Provide the corrected code in this format:
+```dafny
+<COMPLETE_CORRECTED_FILE_CONTENT>
+```

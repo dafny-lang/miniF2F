@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2009_p9(a: real, b: real, c: real, f: real -> real)
   requires forall x: real :: f(x + 3.0) == 3.0 * x*x + 7.0 * x + 4.0

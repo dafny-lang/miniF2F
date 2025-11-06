@@ -1,6 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12a_2020_p13(a: nat, b: nat, c: nat, n: real)
   requires n >= 0.0
