@@ -177,8 +177,6 @@ Results are stored in `results/{model_id}/{test|valid}/results.json`:
 ]
 ```
 
-**Note**: Current evaluation results are in `traces.zip`. Extract with `unzip traces.zip`.
-
 ### Analyzing Results
 
 ```bash
