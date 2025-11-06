@@ -15,10 +15,10 @@ miniF2F challenges LLMs to complete formal proofs in Dafny by filling in empty l
 
 ```
 dataset/
-├── test/          # 244 test problems (evaluation set)
-├── valid/         # 153 validation problems (development set)
-├── utils.dfy      # Core mathematical definitions and axioms
-└── lemmas.dfy     # Helper lemmas for proofs
+├── test/           # 244 test problems
+├── valid/          # 244 validation problems
+├── definitions.dfy # Core mathematical definitions and axioms
+└── library.dfy     # Helper lemmas for proofs
 ```
 
 ## Example Problem
