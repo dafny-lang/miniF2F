@@ -1,7 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
-include "../lemmas.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma algebraic_manipulation(x: int, y: int)
   requires y*y + 3*x*x*y*y == 30*x*x + 517
@@ -71,10 +71,10 @@ lemma check_large_x(x: int, y: int)
   var factor := 1 + 3*x*x;
   assert factor >= 1 + 3*16;
   assert factor >= 49;
-  
+
   // We have y*y*factor == 30*x*x + 517
   // For y != 0, we need y*y >= 1, so factor <= 30*x*x + 517
-  
+
   if y == 0 {
     assert 0 == 30*x*x + 517;
     assert false; // 30*x*x + 517 > 0
@@ -84,16 +84,16 @@ lemma check_large_x(x: int, y: int)
     assert 1 + 3*x*x <= 30*x*x + 517;
     assert 1 <= 27*x*x + 517;
     // This is always true, so we need a different approach
-    
+
     // Let's use the fact that 30*x*x + 517 must be divisible by 1 + 3*x*x
     // We can write: 30*x*x + 517 = 10*(1 + 3*x*x) + (517 - 10)
     assert 30*x*x + 517 == 10*(1 + 3*x*x) + 507;
-    
+
     // So we need (1 + 3*x*x) to divide 507
     // 507 = 3 * 169 = 3 * 13^2
     // For x*x >= 16, we have 1 + 3*x*x >= 49
     // The divisors of 507 that are >= 49 are: 169, 507
-    
+
     if factor == 169 {
       assert 1 + 3*x*x == 169;
       assert 3*x*x == 168;

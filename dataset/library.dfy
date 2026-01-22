@@ -41,7 +41,7 @@ function {:axiom} icc<T>(s: set<T>, t: set<T>): (r: set<set<T>>)
 
 /* LEMMAS */
 
-/* ========== EXPONENTIAL & LOGARITHM ========== */
+/* ========== EXPONENTIAL & LOGARITHM FUNCTIONS ========== */
 
 /* Exp */
 
@@ -161,9 +161,131 @@ lemma {:axiom} logb_change_base(b1: real, b2: real, x: real)
   requires x > 0.0
   ensures logb(b1, x) == logb(b2, x) / logb(b2, b1)
 
-/* ========== POWERS ========== */
+/* ========== INTEGER OPERATIONS ========== */
 
-/* Pow */
+/* Int.pow */
+
+lemma {:axiom} int_pow_zero(b: int)
+  ensures Int.pow(b, 0) == 1
+
+lemma {:axiom} int_pow_one(b: int)
+  ensures Int.pow(b, 1) == b
+
+lemma {:axiom} int_pow_add(b: int, m: nat, n: nat)
+  ensures Int.pow(b, m + n) == Int.pow(b, m) * Int.pow(b, n)
+
+lemma {:axiom} int_pow_mul(b: int, m: nat, n: nat)
+  ensures Int.pow(b, m * n) == Int.pow(Int.pow(b, m), n)
+
+lemma {:axiom} int_pow_pos(b: int, k: nat)
+  requires b > 0
+  ensures Int.pow(b, k) > 0
+
+/* Int.prod */
+
+lemma {:axiom} int_prod_singleton<T>(x: T, f: T -> int)
+  ensures Int.prod({x}, f) == f(x)
+
+lemma {:axiom} int_prod_union<T>(A: set<T>, B: set<T>, f: T -> int)
+  requires A !! B  // disjoint
+  ensures Int.prod(A + B, f) == Int.prod(A, f) * Int.prod(B, f)
+
+lemma {:axiom} int_prod_insert<T>(s: set<T>, x: T, f: T -> int)
+  requires x !in s
+  ensures Int.prod(s + {x}, f) == f(x) * Int.prod(s, f)
+
+/* Int.sum */
+
+lemma {:axiom} int_sum_singleton<T>(x: T, f: T -> int)
+  ensures Int.sum({x}, f) == f(x)
+
+lemma {:axiom} int_sum_union<T>(A: set<T>, B: set<T>, f: T -> int)
+  requires A !! B  // disjoint
+  ensures Int.sum(A + B, f) == Int.sum(A, f) + Int.sum(B, f)
+
+lemma {:axiom} int_sum_insert<T>(s: set<T>, x: T, f: T -> int)
+  requires x !in s
+  ensures Int.sum(s + {x}, f) == f(x) + Int.sum(s, f)
+
+/* ========== RATIONAL OPERATIONS ========== */
+
+/* Rat.add */
+
+lemma {:axiom} rat_add_comm(x: Rat.rat, y: Rat.rat)
+  ensures Rat.add(x, y) == Rat.add(y, x)
+
+lemma {:axiom} rat_add_assoc(x: Rat.rat, y: Rat.rat, z: Rat.rat)
+  ensures Rat.add(Rat.add(x, y), z) == Rat.add(x, Rat.add(y, z))
+
+lemma {:axiom} rat_add_zero(x: Rat.rat)
+  ensures Rat.add(x, Rat.zero()) == x
+
+lemma {:axiom} rat_add_neg(x: Rat.rat)
+  ensures Rat.add(x, x.neg()) == Rat.zero()
+
+/* Rat.mul */
+
+lemma {:axiom} rat_mul_comm(x: Rat.rat, y: Rat.rat)
+  ensures Rat.mul(x, y) == Rat.mul(y, x)
+
+lemma {:axiom} rat_mul_assoc(x: Rat.rat, y: Rat.rat, z: Rat.rat)
+  ensures Rat.mul(Rat.mul(x, y), z) == Rat.mul(x, Rat.mul(y, z))
+
+lemma {:axiom} rat_mul_one(x: Rat.rat)
+  ensures Rat.mul(x, Rat.Rational(1, 1)) == x
+
+lemma {:axiom} rat_mul_zero(x: Rat.rat)
+  ensures Rat.mul(x, Rat.zero()) == Rat.zero()
+
+lemma {:axiom} rat_mul_inv(x: Rat.rat)
+  requires x.num != 0
+  ensures Rat.mul(x, x.inv()) == Rat.Rational(1, 1)
+
+lemma {:axiom} rat_distributive(x: Rat.rat, y: Rat.rat, z: Rat.rat)
+  ensures Rat.mul(x, Rat.add(y, z)) == Rat.add(Rat.mul(x, y), Rat.mul(x, z))
+
+/* Rat.prod */
+
+lemma {:axiom} rat_prod_singleton<T>(x: T, f: T -> Rat.rat)
+  ensures Rat.prod({x}, f) == f(x)
+
+lemma {:axiom} rat_prod_union<T>(A: set<T>, B: set<T>, f: T -> Rat.rat)
+  requires A !! B
+  ensures Rat.prod(A + B, f) == Rat.mul(Rat.prod(A, f), Rat.prod(B, f))
+
+lemma {:axiom} rat_prod_insert<T>(s: set<T>, x: T, f: T -> Rat.rat)
+  requires x !in s
+  ensures Rat.prod(s + {x}, f) == Rat.mul(f(x), Rat.prod(s, f))
+
+/* Rat.sum */
+
+lemma {:axiom} rat_sum_singleton<T>(x: T, f: T -> Rat.rat)
+  ensures Rat.sum({x}, f) == f(x)
+
+lemma {:axiom} rat_sum_union<T>(A: set<T>, B: set<T>, f: T -> Rat.rat)
+  requires A !! B
+  ensures Rat.sum(A + B, f) == Rat.add(Rat.sum(A, f), Rat.sum(B, f))
+
+lemma {:axiom} rat_sum_insert<T>(s: set<T>, x: T, f: T -> Rat.rat)
+  requires x !in s
+  ensures Rat.sum(s + {x}, f) == Rat.add(f(x), Rat.sum(s, f))
+
+/* ========== REAL POWERS ========== */
+
+/* Real.pow */
+
+lemma {:axiom} real_pow_zero(b: real)
+  ensures Real.pow(b, 0) == 1.0
+
+lemma {:axiom} real_pow_one(b: real)
+  ensures Real.pow(b, 1) == b
+
+lemma {:axiom} real_pow_mul(b: real, m: nat, n: nat)
+  ensures Real.pow(b, m * n) == Real.pow(Real.pow(b, m), n)
+
+lemma {:axiom} real_pow_pos(b: real, k: nat)
+  requires b > 0.0
+  ensures Real.pow(b, k) > 0.0
 
 lemma {:axiom} pow_eq_rpow(b: real, k: nat)
   ensures Real.pow(b, k) == rpow(b, k as real)
@@ -171,7 +293,13 @@ lemma {:axiom} pow_eq_rpow(b: real, k: nat)
 lemma {:axiom} pow_add(b: real, k: nat)
   ensures b > 0.0 ==> forall x: nat, y: nat :: Real.pow(b, x+y) == Real.pow(b, x) * Real.pow(b, y)
 
-/* Rpow */
+/* Real.rpow */
+
+lemma {:axiom} rpow_zero(b: real)
+  ensures rpow(b, 0.0) == 1.0
+
+lemma {:axiom} rpow_one(b: real)
+  ensures rpow(b, 1.0) == b
 
 lemma {:axiom} rpow_add(b: real, x: real, y: real)
   requires b > 0.0
@@ -196,12 +324,107 @@ lemma {:axiom} rpow_div_base(x: real, y: real, k: real)
   requires y > 0.0
   ensures rpow(x/y, k) == rpow(x, k) / rpow(y, k)
 
+lemma {:axiom} rpow_rpow(b: real, x: real, y: real)
+  requires b > 0.0
+  ensures rpow(rpow(b, x), y) == rpow(b, x * y)
+
+lemma {:axiom} rpow_neg(b: real, k: real)
+  requires b > 0.0
+  ensures rpow(b, -k) == 1.0 / rpow(b, k)
+
+/* ========== REAL SUM AND PROD ========== */
+
+/* Real.sum */
+
+lemma {:axiom} real_sum_singleton<T>(x: T, f: T -> real)
+  ensures Real.sum({x}, f) == f(x)
+
+lemma {:axiom} real_sum_union<T>(A: set<T>, B: set<T>, f: T -> real)
+  requires A !! B
+  ensures Real.sum(A + B, f) == Real.sum(A, f) + Real.sum(B, f)
+
+lemma {:axiom} real_sum_insert<T>(s: set<T>, x: T, f: T -> real)
+  requires x !in s
+  ensures Real.sum(s + {x}, f) == f(x) + Real.sum(s, f)
+
+/* Real.prod */
+
+lemma {:axiom} real_prod_singleton<T>(x: T, f: T -> real)
+  ensures Real.prod({x}, f) == f(x)
+
+lemma {:axiom} real_prod_union<T>(A: set<T>, B: set<T>, f: T -> real)
+  requires A !! B
+  ensures Real.prod(A + B, f) == Real.prod(A, f) * Real.prod(B, f)
+
+lemma {:axiom} real_prod_insert<T>(s: set<T>, x: T, f: T -> real)
+  requires x !in s
+  ensures Real.prod(s + {x}, f) == f(x) * Real.prod(s, f)
+
 /* Sqrt */
+
+lemma {:axiom} sqrt_zero()
+  ensures sqrt(0.0) == 0.0
+
+lemma {:axiom} sqrt_one()
+  ensures sqrt(1.0) == 1.0
+
+lemma {:axiom} sqrt_nonneg(x: real)
+  requires x >= 0.0
+  ensures sqrt(x) >= 0.0
+
+lemma {:axiom} sqrt_sq(x: real)
+  requires x >= 0.0
+  ensures sqrt(x) * sqrt(x) == x
+
+lemma {:axiom} sq_sqrt(x: real)
+  requires x >= 0.0
+  ensures sqrt(x * x) == x
+
+lemma {:axiom} sqrt_eq_pow_half (x: real)
+  requires x >= 0.0
+  ensures sqrt(x) == rpow(x, 0.5)
 
 lemma {:axiom} sqrt_mul(y: real, z: real)
   requires y >= 0.0
   requires z >= 0.0
   ensures sqrt(y*z) == sqrt(y)*sqrt(z)
+
+lemma {:axiom} sqrt_div(x: real, y: real)
+  requires x >= 0.0
+  requires y > 0.0
+  ensures sqrt(x / y) == sqrt(x) / sqrt(y)
+
+/* Tan */
+
+lemma {:axiom} tan_def(x: real)
+  requires cos(x) != 0.0
+  ensures tan(x) == sin(x) / cos(x)
+
+/* Abs */
+
+lemma {:axiom} abs_nonneg(x: real)
+  ensures abs(x) >= 0.0
+
+lemma {:axiom} abs_zero(x: real)
+  ensures abs(x) == 0.0 <==> x == 0.0
+
+lemma {:axiom} abs_neg(x: real)
+  ensures abs(-x) == abs(x)
+
+lemma {:axiom} abs_triangle(x: real, y: real)
+  ensures abs(x + y) <= abs(x) + abs(y)
+
+lemma {:axiom} abs_mul(x: real, y: real)
+  ensures abs(x * y) == abs(x) * abs(y)
+
+lemma {:axiom} abs_div(x: real, y: real)
+  requires y != 0.0
+  ensures abs(x / y) == abs(x) / abs(y)
+
+/* Irrational - defining property */
+
+lemma {:axiom} irrational_def(x: real)
+  ensures irrational(x) <==> (forall p: int, q: int :: q != 0 ==> x != (p as real) / (q as real))
 
 /* ========== TRIGONOMETRY ========== */
 
@@ -307,6 +530,15 @@ lemma {:axiom} cos_sub_two_pi(x: real)
 lemma {:axiom} pi_smallest_period()
   ensures forall p: real | pos(p) && (forall x :: sin(x + p) == sin(x)) :: pi() <= p
 
+lemma {:axiom} pi_pos()
+  ensures pi() > 0.0
+
+lemma {:axiom} pi_smallest_cos_neg_one()
+  ensures forall p: real | p > 0.0 && cos(p) == -1.0 :: pi() <= p
+
+lemma {:axiom} pi_smallest_sin_zero_after_zero()
+  ensures forall p: real | p > 0.0 && sin(p) == 0.0 :: pi() <= p
+
 /* Special angle values */
 
 lemma {:axiom} sin_pi_div_six()
@@ -331,6 +563,9 @@ lemma {:axiom} cos_pi_div_three()
 /* ========== COMPLEX NUMBERS ========== */
 
 /* Complex arithmetic */
+
+lemma {:axiom} complex_i_squared()
+  ensures Complex.mul(Complex.i(), Complex.i()) == Complex.Complex(-1.0, 0.0)
 
 lemma {:axiom} complex_add_comm(z: Complex.complex, w: Complex.complex)
   ensures Complex.add(z, w) == Complex.add(w, z)
@@ -368,6 +603,32 @@ lemma {:axiom} complex_abs_nonneg(z: Complex.complex)
 lemma {:axiom} complex_abs_zero(z: Complex.complex)
   ensures Complex.norm(z) == 0.0 <==> z == Complex.zero()
 
+/* Complex.sum */
+
+lemma {:axiom} complex_sum_singleton<T>(x: T, f: T -> Complex.complex)
+  ensures Complex.sum({x}, f) == f(x)
+
+lemma {:axiom} complex_sum_union<T>(A: set<T>, B: set<T>, f: T -> Complex.complex)
+  requires A !! B
+  ensures Complex.sum(A + B, f) == Complex.add(Complex.sum(A, f), Complex.sum(B, f))
+
+lemma {:axiom} complex_sum_insert<T>(s: set<T>, x: T, f: T -> Complex.complex)
+  requires x !in s
+  ensures Complex.sum(s + {x}, f) == Complex.add(f(x), Complex.sum(s, f))
+
+/* Complex.prod */
+
+lemma {:axiom} complex_prod_singleton<T>(x: T, f: T -> Complex.complex)
+  ensures Complex.prod({x}, f) == f(x)
+
+lemma {:axiom} complex_prod_union<T>(A: set<T>, B: set<T>, f: T -> Complex.complex)
+  requires A !! B
+  ensures Complex.prod(A + B, f) == Complex.mul(Complex.prod(A, f), Complex.prod(B, f))
+
+lemma {:axiom} complex_prod_insert<T>(s: set<T>, x: T, f: T -> Complex.complex)
+  requires x !in s
+  ensures Complex.prod(s + {x}, f) == Complex.mul(f(x), Complex.prod(s, f))
+
 /* Complex exponential */
 
 lemma {:axiom} cexp_zero()
@@ -386,11 +647,11 @@ lemma {:axiom} euler_formula(x: real)
   ensures cexp(Complex.mul(Complex.i(), Complex.of_real(x))) == Complex.Complex(cos(x), sin(x))
 
 lemma {:axiom} cos_via_exp(x: real)
-  ensures cos(x) == (cexp(Complex.mul(Complex.i(), Complex.of_real(x))).re + 
+  ensures cos(x) == (cexp(Complex.mul(Complex.i(), Complex.of_real(x))).re +
                       cexp(Complex.mul(Complex.i(), Complex.of_real(-x))).re) / 2.0
 
 lemma {:axiom} sin_via_exp(x: real)
-  ensures sin(x) == (cexp(Complex.mul(Complex.i(), Complex.of_real(x))).im - 
+  ensures sin(x) == (cexp(Complex.mul(Complex.i(), Complex.of_real(x))).im -
                       cexp(Complex.mul(Complex.i(), Complex.of_real(-x))).im) / 2.0
 
 /* ========== NUMBER THEORY ========== */
@@ -549,6 +810,3 @@ lemma {:axiom} complex_sum_seq_to_set<T>(s: seq<T>, f: T -> Complex.complex)
 
 lemma {:axiom} complex_prod_seq_to_set<T>(s: seq<T>, f: T -> Complex.complex)
   ensures complex_prod_seq(s, f) == Complex.prod((set x | x in s), f)
-
-
-

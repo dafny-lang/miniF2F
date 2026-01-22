@@ -1,7 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
-include "../lemmas.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma amc12_2000_p6(p: nat, q: nat)
   requires prime(p)

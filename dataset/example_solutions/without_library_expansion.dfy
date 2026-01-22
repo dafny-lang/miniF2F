@@ -1,7 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils.dfy"
-include "../lemmas.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 // Helper lemma: relationship between log base 8 and log base 2
 lemma {:axiom} log8_to_log2(x: real)
