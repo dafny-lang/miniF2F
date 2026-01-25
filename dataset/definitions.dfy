@@ -1,8 +1,8 @@
 /* ========== INTEGERS ========== */
 
 module Int {
-  
-  function pow(b: int, k: nat): (p: int) 
+
+  function pow(b: int, k: nat): (p: int)
     ensures if k == 0 then p == 1 else p == b * pow(b, k - 1)
     {
     if k == 0 then 1
@@ -35,7 +35,7 @@ module Rat {
       ensures r == this.num as real / this.denom as real
   }
 
-  predicate {:axiom} eq(lhs: rat, rhs: rat) 
+  predicate {:axiom} eq(lhs: rat, rhs: rat)
     ensures eq(lhs, rhs) <==> (lhs.num * rhs.denom == rhs.num * lhs.denom)
 
   predicate {:axiom} leq(lhs: rat, rhs: rat)
@@ -48,7 +48,7 @@ module Rat {
   function {:axiom} add(lhs: rat, rhs: rat): (r: rat)
     ensures r == Rational(lhs.num * rhs.denom + rhs.num * lhs.denom, lhs.denom * rhs.denom)
 
-  function {:axiom} sub(lhs: rat, rhs: rat): (r: rat) 
+  function {:axiom} sub(lhs: rat, rhs: rat): (r: rat)
     ensures r == add(lhs, rhs.neg())
 
   function {:axiom} mul(lhs: rat, rhs: rat): (r: rat)
@@ -66,19 +66,19 @@ module Rat {
 
   function {:axiom} prod<T>(s: set<T>, f: T -> rat): (p: rat)
     ensures s == {} ==> p == Rational(1, 1)
-    ensures forall x | x in s :: p == add(f(x), sum(s - {x}, f))
+    ensures forall x | x in s :: p == mul(f(x), prod(s - {x}, f))
 
   function {:axiom} sum<T>(s: set<T>, f: T -> rat): (p: rat)
     ensures s == {} ==> p == Rational(0, 1)
     ensures forall x | x in s :: p == add(f(x), sum(s - {x}, f))
-  
+
 }
 
 /* ========== REAL NUMBERS ========== */
 
 module Real {
 
-  function pow(b: real, k: nat): (p: real) 
+  function pow(b: real, k: nat): (p: real)
     ensures if k == 0 then p == 1.0 else p == b * pow(b, k - 1)
     {
         if k == 0 then 1.0
@@ -94,7 +94,7 @@ module Real {
   function {:axiom} sum<T>(s: set<T>, f: T -> real): (p: real)
     ensures s == {} ==> p == 0.0
     ensures forall x | x in s :: p == f(x) + sum(s - {x}, f)
-  
+
   function {:axiom} prod<T>(s: set<T>, f: T -> real): (p: real)
     ensures s == {} ==> p == 1.0
     ensures forall x | x in s :: p == f(x) * prod(s - {x}, f)
@@ -112,7 +112,7 @@ module Real {
     ensures x > 1.0 <==> l > 0.0
     ensures 0.0 < x < 1.0 <==> l < 0.0
     ensures x == 1.0 <==> l == 0.0
-    
+
   function {:axiom} cos(x: real): real
     ensures -1.0 <= cos(x) <= 1.0
 
@@ -142,7 +142,7 @@ module Complex {
 
   }
 
-  function {:axiom} of_real(r: real): (z: complex) 
+  function {:axiom} of_real(r: real): (z: complex)
     ensures z == Complex(r, 0.0)
 
   function {:axiom} zero(): complex
@@ -154,20 +154,20 @@ module Complex {
   function {:axiom} i(): complex
     ensures i() == Complex(0.0, 1.0)
 
-  function {:axiom} add(z: complex, w: complex): (u: complex) 
+  function {:axiom} add(z: complex, w: complex): (u: complex)
     ensures u == Complex(z.re + w.re, z.im + w.im)
 
-  function {:axiom} sub(z: complex, w: complex): (u: complex) 
+  function {:axiom} sub(z: complex, w: complex): (u: complex)
     ensures u == add(z, w.neg())
 
-  function {:axiom} mul(z: complex, w: complex): (u: complex) 
+  function {:axiom} mul(z: complex, w: complex): (u: complex)
     ensures u == Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re)
 
   function {:axiom} div(z: complex, w: complex): (u: complex)
     requires w != zero()
     ensures u == Complex(z.re * w.re / norm_sq(w) + z.im * w.im / norm_sq(w), z.im * w.re / norm_sq(w) - z.re * w.im / norm_sq(w))
 
-  function {:axiom} pow(b: complex, k: nat): (p: complex) 
+  function {:axiom} pow(b: complex, k: nat): (p: complex)
     ensures if k == 0 then p == one() else p == mul(b, pow(b, k - 1))
     ensures b != zero() ==> p != zero()
 
@@ -175,7 +175,7 @@ module Complex {
     ensures r == z.re * z.re + z.im * z.im
     ensures r == 0.0 <==> z == zero()
 
-  function {:axiom} norm(z: complex): (r: real) 
+  function {:axiom} norm(z: complex): (r: real)
     ensures r == sqrt(z.re * z.re + z.im * z.im)
 
 
@@ -185,7 +185,7 @@ module Complex {
 
   function {:axiom} prod<T>(s: set<T>, f: T -> complex): (p: complex)
     ensures s == {} ==> p == one()
-    ensures forall x | x in s :: p == add(f(x), sum(s - {x}, f))
+    ensures forall x | x in s :: p == mul(f(x), prod(s - {x}, f))
 
 }
 
@@ -216,16 +216,17 @@ function {:axiom} ceil(x: real): (m: int)
 
 predicate {:axiom} irrational(x: real)
 
-function {:axiom} factorial(n: nat): (r: nat) 
+function {:axiom} factorial(n: nat): (r: nat)
   ensures if n == 0 then r == 1 else r == n * factorial(n-1)
   ensures r > 0
 
-predicate {:axiom} prime(n: int) 
+predicate {:axiom} prime(n: int)
   ensures prime(n) <==> 2 <= n && forall m | 2 <= m < n :: n % m != 0
 
 function {:verify false} gcd(x: nat, y: nat): nat
   requires x > 0 || y > 0
   ensures gcd(x, y) > 0
+  ensures gcd(x, y) == gcd(y, x)
   ensures x % gcd(x, y) == 0
   ensures y % gcd(x, y) == 0
   ensures forall p: nat | p > 0 && x % p == 0 && y % p == 0 :: p <= gcd(x, y)
@@ -273,7 +274,7 @@ function {:verify false} digits_aux(b: nat, n: nat): seq<nat>
   ensures n == 0 ==> digits_aux(b, n) == []
   ensures n > 0 ==> digits_aux(b, n) == [n % b] + digits_aux(b, n / b)
 
-function {:verify false} of_digits(b: nat, xs: seq<nat>): nat
+function {:axiom} of_digits(b: nat, xs: seq<nat>): nat
   ensures if |xs| == 0 then of_digits(b, xs) == 0 else of_digits(b, xs) == xs[0] + b*of_digits(b, xs[1..])
   ensures forall n :: of_digits(b, digits(b, n)) == n
   ensures forall n :: of_digits(b, [n]) == n

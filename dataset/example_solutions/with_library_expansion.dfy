@@ -1,7 +1,7 @@
 // Author: Stefan Zetzsche
 
-include "../utils_v2.dfy"
-include "../lemmas_v2.dfy"
+include "../definitions.dfy"
+include "../library.dfy"
 
 lemma aime_1988_p3(x: real)
   requires 0.0 < x
