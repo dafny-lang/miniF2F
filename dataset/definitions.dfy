@@ -274,7 +274,7 @@ function {:verify false} digits_aux(b: nat, n: nat): seq<nat>
   ensures n == 0 ==> digits_aux(b, n) == []
   ensures n > 0 ==> digits_aux(b, n) == [n % b] + digits_aux(b, n / b)
 
-function {:axiom} of_digits(b: nat, xs: seq<nat>): nat
+function {: verify false} of_digits(b: nat, xs: seq<nat>): nat
   ensures if |xs| == 0 then of_digits(b, xs) == 0 else of_digits(b, xs) == xs[0] + b*of_digits(b, xs[1..])
   ensures forall n :: of_digits(b, digits(b, n)) == n
   ensures forall n :: of_digits(b, [n]) == n
