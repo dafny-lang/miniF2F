@@ -89,31 +89,89 @@ lemma {:axiom} exp_log(x: real)
   requires x > 0.0
   ensures exp(log(x)) == x
 
-lemma {:axiom} log_mul(x: real, y: real)
+lemma log_mul(x: real, y: real)
   requires x > 0.0
   requires y > 0.0
   ensures log(x*y) == log(x) + log(y)
+{
+  exp_add(log(x), log(y));
+  exp_log(x); exp_log(y); exp_log(x * y);
+  exp_eq_exp(log(x) + log(y), log(x * y));
+}
 
-lemma {:axiom} log_div(x: real, y: real)
+
+lemma log_div(x: real, y: real)
   requires x > 0.0
   requires y > 0.0
   ensures log(x/y) == log(x) - log(y)
+{
+  exp_sub(log(x), log(y));
+  exp_log(x); exp_log(y); exp_log(x/y);
+  exp_eq_exp(log(x) - log(y), log(x/y));
+}
 
-lemma {:axiom} log_inv(x: real)
+lemma log_inv(x: real)
   requires x > 0.0
   ensures log(1.0/x) == -log(x)
+{
+  log_div(1.0, x);
+  log_one();
+}
 
-lemma {:axiom} log_pow(y: real, n: nat)
+lemma log_pow(y: real, n: nat)
   requires y > 0.0
   ensures log(Real.pow(y, n)) == (n as real)*log(y)
+{
+  if n == 0
+  {
+    log_one();
+  }
+  else
+  {
+    var X := Real.pow(y, n - 1);
+    real_pow_pos(y, n - 1);
+    assert X > 0.0;
 
-lemma {:axiom} log_nonneg(x: real)
+    assert Real.pow(y, n) == X * y;
+    assert log(Real.pow(y, n)) == log(X * y);
+
+    assert log(X * y) == log(X) + log(y) by {
+      log_mul(X, y);
+    }
+    
+    assert log(X) == ((n - 1) as real) * log(y) by {
+      log_pow(y, n - 1);
+    }
+
+    assert log(Real.pow(y, n)) == ((n - 1) as real) * log(y) + log(y);
+    
+    // Distribution property for reals
+    assert ((n - 1) as real) * log(y) + log(y) == ((n - 1) as real + 1.0) * log(y);
+    assert ((n - 1) as real + 1.0) == (n as real);
+    assert (n as real) * log(y) == ((n - 1) as real + 1.0) * log(y) by
+    { 
+      if log(y) == 0.0
+      { }
+      else
+      {
+        forall a : real | log(a) != 0.0 // assumption for only the purpose of a trigger
+          ensures (n as real) * log(a) == ((n - 1) as real + 1.0) * log(a)
+        {}
+      }
+    }
+  }
+}
+
+lemma log_nonneg(x: real)
   requires 1.0 <= x
   ensures 0.0 <= log(x)
+{}
 
-lemma {:axiom} log_pos(x: real)
+
+lemma log_pos(x: real)
   requires 1.0 < x
   ensures 0.0 < log(x)
+{}
 
 /* Logb */
 
@@ -165,21 +223,73 @@ lemma {:axiom} logb_change_base(b1: real, b2: real, x: real)
 
 /* Int.pow */
 
-lemma {:axiom} int_pow_zero(b: int)
+lemma int_pow_zero(b: int)
   ensures Int.pow(b, 0) == 1
+{}
 
-lemma {:axiom} int_pow_one(b: int)
+lemma int_pow_one(b: int)
   ensures Int.pow(b, 1) == b
+{}
 
-lemma {:axiom} int_pow_add(b: int, m: nat, n: nat)
+lemma int_pow_add(b: int, m: nat, n: nat)
   ensures Int.pow(b, m + n) == Int.pow(b, m) * Int.pow(b, n)
+{
+  // Proof by induction on n
+  if n == 0
+  { 
+  }
+  else
+  {
+    assert n > 0;
+    int_pow_add(b, m, n - 1);
+    
+    var X := Int.pow(b, m);
+    var Y := Int.pow(b, n - 1);
 
-lemma {:axiom} int_pow_mul(b: int, m: nat, n: nat)
+    calc {
+      Int.pow(b, m + n);
+      == // Definition of Int.pow
+      b * Int.pow(b, m + n - 1);
+      == { int_pow_add(b, m, n - 1); } // Inductive hypothesis
+      b * (X * Y);
+      == { forall b, X, Y : int
+            ensures b * (X * Y) == X * (b * Y)
+            {} } // Associativity and commutativity
+      X * (b * Y);
+      == // Definition of Int.pow(b, n) is b * Y
+      X * Int.pow(b, n);
+    }
+  }
+}
+
+lemma int_pow_mul(b: int, m: nat, n: nat)
   ensures Int.pow(b, m * n) == Int.pow(Int.pow(b, m), n)
+{
+  if n == 0
+  {}
+  else
+  {
+    assert n > 0;
+    calc {
+      Int.pow(b, m * n);
+      == { assert m * n == m * (n - 1) + m; }
+      Int.pow(b, m * (n - 1) + m);
+      == { int_pow_add(b, m * (n - 1), m); }
+      Int.pow(b, m * (n - 1)) * Int.pow(b, m);
+      == { int_pow_mul(b, m, n - 1); }
+      Int.pow(Int.pow(b, m), n - 1) * Int.pow(b, m);
+      ==
+      Int.pow(b, m) * Int.pow(Int.pow(b, m), n - 1);
+      ==
+      Int.pow(Int.pow(b, m), n);
+    }
+  }
+}
 
-lemma {:axiom} int_pow_pos(b: int, k: nat)
+lemma int_pow_pos(b: int, k: nat)
   requires b > 0
   ensures Int.pow(b, k) > 0
+{ }
 
 /* Int.prod */
 
@@ -196,16 +306,32 @@ lemma {:axiom} int_prod_insert<T>(s: set<T>, x: T, f: T -> int)
 
 /* Int.sum */
 
-lemma {:axiom} int_sum_singleton<T>(x: T, f: T -> int)
+lemma int_sum_singleton<T>(x: T, f: T -> int)
   ensures Int.sum({x}, f) == f(x)
+{}
 
-lemma {:axiom} int_sum_union<T>(A: set<T>, B: set<T>, f: T -> int)
+
+lemma int_sum_union<T>(A: set<T>, B: set<T>, f: T -> int)
   requires A !! B  // disjoint
   ensures Int.sum(A + B, f) == Int.sum(A, f) + Int.sum(B, f)
+{
+  if B == {}
+  {
+    assert A + B == A;
+  }
+  else
+  {
+    var y : T :| y in B;
+    assert A !! (B - {y});
+    int_sum_union(A, B - {y}, f);
+    assert A + B == A + (B - {y}) + {y};
+  }
+}
 
-lemma {:axiom} int_sum_insert<T>(s: set<T>, x: T, f: T -> int)
+lemma int_sum_insert<T>(s: set<T>, x: T, f: T -> int)
   requires x !in s
   ensures Int.sum(s + {x}, f) == f(x) + Int.sum(s, f)
+{}
 
 /* ========== RATIONAL OPERATIONS ========== */
 
@@ -421,7 +547,7 @@ lemma {:axiom} abs_div(x: real, y: real)
   requires y != 0.0
   ensures abs(x / y) == abs(x) / abs(y)
 
-/* Irrational - defining property */
+/* Axiomatization of irrational numbers over the reals */
 
 lemma {:axiom} irrational_def(x: real)
   ensures irrational(x) <==> (forall p: int, q: int :: q != 0 ==> x != (p as real) / (q as real))
@@ -429,6 +555,14 @@ lemma {:axiom} irrational_def(x: real)
 /* ========== TRIGONOMETRY ========== */
 
 /* Sin and Cos */
+
+// Axiomatization of sin and cos functions over the real numbers
+lemma {:axiom} sin_cos_def()
+  ensures continuous(sin)
+  ensures continuous(cos)
+  ensures sin(0.0) == 0.0
+  ensures forall x, y :: cos(x - y) == cos(x) * cos(y) + sin(x) * sin(y)
+  ensures forall x | 0.0 < x < 1.0 :: 0.0 < x * cos(x) < sin(x) < x
 
 lemma {:axiom} sin_zero()
   ensures sin(0.0) == 0.0
@@ -459,14 +593,6 @@ lemma {:axiom} cos_sub(x: real, y: real)
 
 lemma {:axiom} cos_sq_add_sin_sq_eq_one(x : real)
   ensures cos(x) * cos(x) + sin(x) * sin(x) == 1.0
-
-// Axiomatization of sin and cos functions over the real numbers
-lemma {:axiom} sin_cos_def()
-  ensures continuous(sin)
-  ensures continuous(cos)
-  ensures sin(0.0) == 0.0
-  ensures forall x, y :: cos(x - y) == cos(x) * cos(y) + sin(x) * sin(y)
-  ensures forall x | 0.0 < x < 1.0 :: 0.0 < x * cos(x) < sin(x) < x
 
 /* Pi */
 
