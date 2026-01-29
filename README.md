@@ -1,6 +1,6 @@
 # miniF2F - Dafny Formal Verification Benchmark
 
-This repository contains a Dafny version of the miniF2F benchmark consisting of mathematical problems from competitions (AIME, AMC, IMO) along with automated evaluation infrastructure. It is maintained by Mantas Bakšys and Stefan Zetzsche.
+This repository contains a Dafny version of the miniF2F benchmark consisting of mathematical problems from competitions (AIME, AMC, IMO) along with automated evaluation infrastructure.
 
 ## Overview
 

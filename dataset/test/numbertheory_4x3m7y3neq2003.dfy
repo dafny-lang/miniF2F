@@ -1,5 +1,3 @@
-// Author: Stefan Zetzsche
-
 include "../definitions.dfy"
 include "../library.dfy"
 
