@@ -39,7 +39,7 @@ def _format_verification_errors(file_path, json_output, utils_file=None, lemmas_
         utils_file: Name of utils file to exclude from errors (e.g., 'utils.dfy')
         lemmas_file: Name of lemmas file to exclude from errors (e.g., 'lemmas.dfy')
     """
-    utils_files = []
+    utils_files = ['definitions.dfy', 'library.dfy']
     if utils_file:
         utils_files.append(utils_file)
     if lemmas_file:
@@ -92,7 +92,7 @@ def verify_file(file_path, utils_file=None, lemmas_file=None):
         utils_file: Name of utils file to exclude from errors
         lemmas_file: Name of lemmas file to exclude from errors
     """
-    utils_files = []
+    utils_files = ['definitions.dfy', 'library.dfy']
     if utils_file:
         utils_files.append(utils_file)
     if lemmas_file:
@@ -161,7 +161,7 @@ def verify_with_spec_check(problem_file: str, solution_file: str, debug: bool = 
     Returns:
         bool if return_errors=False, (bool, str) if return_errors=True
     """
-    utils_files = []
+    utils_files = ['definitions.dfy', 'library.dfy']
     if utils_file:
         utils_files.append(utils_file)
     if lemmas_file:
