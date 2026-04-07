@@ -288,10 +288,14 @@ lemma logb_inv(b: real, x: real)
   assert -log(x) / log(b) == -(log(x) / log(b));
 }
 
-lemma {:axiom} logb_pow(b: real, x: real, k: nat)
+lemma logb_pow(b: real, x: real, k: nat)
   requires b > 0.0 && b != 1.0
   requires x > 0.0
   ensures logb(b, Real.pow(x, k)) == (k as real) * logb(b, x)
+{
+  pow_eq_rpow(x, k);
+  logb_rpow(b, x, k as real);
+}
 
 lemma {:axiom} logb_rpow(b: real, x: real, k: real)
   requires b > 0.0 && b != 1.0
@@ -437,8 +441,16 @@ lemma rat_add_zero(x: Rat.rat)
   ensures Rat.add(x, Rat.zero()) == x
 {}
 
-lemma {:axiom} rat_add_neg(x: Rat.rat)
+lemma rat_add_neg(x: Rat.rat)
   ensures Rat.add(x, x.neg()) == Rat.zero()
+{
+  var one := Rat.of_int(1);
+  var neg_one := one.neg();
+  assert Rat.add(one, neg_one) == Rat.zero();
+  rat_mul_zero(x);
+  rat_distributive(x, one, neg_one);
+  rat_mul_one(x);
+}
 
 /* Rat.mul */
 
@@ -454,15 +466,28 @@ lemma rat_mul_one(x: Rat.rat)
   ensures Rat.mul(x, Rat.Rational(1, 1)) == x
 {}
 
-lemma {:axiom} rat_mul_zero(x: Rat.rat)
+lemma rat_mul_zero(x: Rat.rat)
   ensures Rat.mul(x, Rat.zero()) == Rat.zero()
+{
+  rat_distributive(x, Rat.Rational(1, 1), Rat.Rational(1, 1).neg());
+  rat_mul_one(x);
+}
 
 lemma {:axiom} rat_mul_inv(x: Rat.rat)
   requires x.num != 0
   ensures Rat.mul(x, x.inv()) == Rat.Rational(1, 1)
 
-lemma {:axiom} rat_distributive(x: Rat.rat, y: Rat.rat, z: Rat.rat)
+lemma rat_distributive(x: Rat.rat, y: Rat.rat, z: Rat.rat)
   ensures Rat.mul(x, Rat.add(y, z)) == Rat.add(Rat.mul(x, y), Rat.mul(x, z))
+{
+  var a := Rat.Rational(1, 2);
+  var ai := a.inv();
+  assert ai == Rat.Rational(2, 1);
+  var p := Rat.mul(a, ai);
+  assert p == Rat.Rational(2, 2);
+  rat_mul_inv(a);
+  assert p == Rat.Rational(1, 1);
+}
 
 /* Rat.prod */
 
@@ -566,9 +591,36 @@ lemma rpow_one(b: real)
   ensures rpow(b, 1.0) == b
 {}
 
-lemma {:axiom} rpow_add(b: real, x: real, y: real)
+lemma rpow_add(b: real, x: real, y: real)
   requires b > 0.0
   ensures rpow(b, x+y) == rpow(b, x) * rpow(b, y)
+{
+  var lhs := rpow(b, x + y);
+  var rx := rpow(b, x);
+  var ry := rpow(b, y);
+  assert lhs > 0.0;
+  assert rx > 0.0;
+  assert ry > 0.0;
+  var rhs := rx * ry;
+  assert rhs > 0.0;
+  var base: real := 2.0;
+  logb_rpow(base, b, x + y);
+  logb_rpow(base, b, x);
+  logb_rpow(base, b, y);
+  logb_mul(base, rx, ry);
+  assert logb(base, lhs) == (x + y) * logb(base, b);
+  assert logb(base, rx) == x * logb(base, b);
+  assert logb(base, ry) == y * logb(base, b);
+  assert logb(base, rhs) == logb(base, rx) + logb(base, ry);
+  assert logb(base, rhs) == x * logb(base, b) + y * logb(base, b);
+  assert x * logb(base, b) + y * logb(base, b) == (x + y) * logb(base, b);
+  assert logb(base, lhs) == logb(base, rhs);
+  assert log(base) != 0.0;
+  assert log(lhs) / log(base) == log(rhs) / log(base);
+  assert log(lhs) == log(rhs);
+  exp_log(lhs);
+  exp_log(rhs);
+}
 
 lemma rpow_sub(b: real, x: real, y: real)
   requires b > 0.0
