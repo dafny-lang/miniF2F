@@ -784,14 +784,29 @@ lemma {:axiom} real_prod_union<T>(A: set<T>, B: set<T>, f: T -> real)
   requires A !! B
   ensures Real.prod(A + B, f) == Real.prod(A, f) * Real.prod(B, f)
 
-lemma {:axiom} real_prod_insert<T>(s: set<T>, x: T, f: T -> real)
+lemma real_prod_insert<T>(s: set<T>, x: T, f: T -> real)
   requires x !in s
   ensures Real.prod(s + {x}, f) == f(x) * Real.prod(s, f)
+{
+  real_prod_singleton(x, f);
+  real_prod_union(s, {x}, f);
+}
 
 /* Sqrt */
 
-lemma {:axiom} sqrt_zero()
+lemma sqrt_zero()
   ensures sqrt(0.0) == 0.0
+{
+  var y := sqrt(0.0);
+  assert y * y == 0.0;
+  if y != 0.0 {
+    var inv := 1.0 / y;
+    assert (y * y) * (inv * inv) == 0.0 * (inv * inv);
+    assert (y * inv) * (y * inv) == 0.0;
+    assert 1.0 * 1.0 == 0.0;
+    assert false;
+  }
+}
 
 lemma sqrt_one()
   ensures sqrt(1.0) == 1.0
@@ -1206,8 +1221,28 @@ lemma cos_sub(x: real, y: real)
   sin_cos_def();
 }
 
-lemma {:axiom} cos_sq_add_sin_sq_eq_one(x : real)
+lemma cos_sq_add_sin_sq_eq_one(x : real)
   ensures cos(x) * cos(x) + sin(x) * sin(x) == 1.0
+{
+  // Step 1: Establish cos(0) == 1 from complex exponential
+  assert cexp(Complex.Complex(0.0, 0.0)) == Complex.Complex(cos(0.0), sin(0.0)) by {
+    cexp_imag(0.0);
+  }
+  assert Complex.Complex(0.0, 0.0) == Complex.zero();
+  assert cexp(Complex.zero()) == Complex.one() by {
+    cexp_zero();
+  }
+  assert Complex.one() == Complex.Complex(1.0, 0.0) by {
+    assert Complex.one() == Complex.of_real(1.0);
+  }
+  assert cos(0.0) == 1.0;
+
+  // Step 2: From sin_cos_def, cos(x - y) == cos(x)*cos(y) + sin(x)*sin(y)
+  sin_cos_def();
+  assert cos(x - x) == cos(x) * cos(x) + sin(x) * sin(x);
+  assert x - x == 0.0;
+  assert cos(0.0) == cos(x) * cos(x) + sin(x) * sin(x);
+}
 
 /* Pi */
 
@@ -1490,8 +1525,109 @@ lemma pi_smallest_cos_neg_one()
   }
 }
 
-lemma {:axiom} pi_smallest_sin_zero_after_zero()
+lemma pi_smallest_sin_zero_after_zero()
   ensures forall p: real | p > 0.0 && sin(p) == 0.0 :: pi() <= p
+{
+  forall p: real | p > 0.0 && sin(p) == 0.0
+    ensures pi() <= p
+  {
+    cos_sq_add_sin_sq_eq_one(p);
+    assert cos(p) * cos(p) == 1.0;
+
+    if cos(p) == -1.0 {
+      pi_smallest_cos_neg_one();
+    } else {
+      if cos(p) - 1.0 != 0.0 {
+        var inv := 1.0 / (cos(p) - 1.0);
+        assert (cos(p) - 1.0) * (cos(p) + 1.0) == cos(p) * cos(p) - 1.0 == 0.0;
+        assert (cos(p) + 1.0) == 0.0;
+        assert false;
+      }
+      assert cos(p) == 1.0;
+
+      var h := p / 2.0;
+      sin_add(h, h);
+      assert h + h == p;
+      cos_add(h, h);
+      cos_sq_add_sin_sq_eq_one(h);
+      assert cos(h) * cos(h) - sin(h) * sin(h) == 1.0;
+      assert cos(h) * cos(h) + sin(h) * sin(h) == 1.0;
+      assert sin(h) * sin(h) == 0.0;
+      if sin(h) != 0.0 {
+        var inv := 1.0 / sin(h);
+        assert sin(h) * sin(h) * (inv * inv) == 0.0;
+        assert false;
+      }
+      assert sin(h) == 0.0;
+      assert cos(h) * cos(h) == 1.0;
+
+      if cos(h) == -1.0 {
+        pi_smallest_cos_neg_one();
+      } else {
+        if cos(h) - 1.0 != 0.0 {
+          var inv := 1.0 / (cos(h) - 1.0);
+          assert (cos(h) - 1.0) * (cos(h) + 1.0) == cos(h) * cos(h) - 1.0 == 0.0;
+          assert (cos(h) + 1.0) == 0.0;
+          assert false;
+        }
+        assert cos(h) == 1.0;
+
+        var q := h / 2.0;
+        sin_add(q, q);
+        assert q + q == h;
+        cos_add(q, q);
+        cos_sq_add_sin_sq_eq_one(q);
+        assert cos(q) * cos(q) - sin(q) * sin(q) == 1.0;
+        assert cos(q) * cos(q) + sin(q) * sin(q) == 1.0;
+        assert sin(q) * sin(q) == 0.0;
+        if sin(q) != 0.0 {
+          var inv := 1.0 / sin(q);
+          assert sin(q) * sin(q) * (inv * inv) == 0.0;
+          assert false;
+        }
+        assert sin(q) == 0.0;
+        assert cos(q) * cos(q) == 1.0;
+
+        if cos(q) == -1.0 {
+          pi_smallest_cos_neg_one();
+        } else {
+          if cos(q) - 1.0 != 0.0 {
+            var inv := 1.0 / (cos(q) - 1.0);
+            assert (cos(q) - 1.0) * (cos(q) + 1.0) == cos(q) * cos(q) - 1.0 == 0.0;
+            assert (cos(q) + 1.0) == 0.0;
+            assert false;
+          }
+          assert cos(q) == 1.0;
+
+          var r := q / 2.0;
+          sin_add(r, r);
+          assert r + r == q;
+          cos_add(r, r);
+          cos_sq_add_sin_sq_eq_one(r);
+          assert cos(r) * cos(r) - sin(r) * sin(r) == 1.0;
+          assert cos(r) * cos(r) + sin(r) * sin(r) == 1.0;
+          assert sin(r) * sin(r) == 0.0;
+          if sin(r) != 0.0 {
+            var inv := 1.0 / sin(r);
+            assert sin(r) * sin(r) * (inv * inv) == 0.0;
+            assert false;
+          }
+          assert sin(r) == 0.0;
+
+          if p < pi() {
+            assert r == p / 8.0;
+            assert r < pi() / 8.0;
+            assert pi() < 3.1415926536;
+            assert r < 1.0;
+            sin_cos_def();
+            assert sin(r) > 0.0;
+            assert false;
+          }
+        }
+      }
+    }
+  }
+}
 
 /* Special angle values */
 
