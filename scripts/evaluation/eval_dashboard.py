@@ -3,7 +3,6 @@ import json
 import time
 import os
 from pathlib import Path
-from collections import defaultdict
 
 def clear_screen():
     try:
@@ -11,20 +10,22 @@ def clear_screen():
     except:
         pass
 
-def get_stats():
-    traces_dir = Path("/home/ubuntu/miniF2F/traces")
-    results_dir = Path("/home/ubuntu/miniF2F/results")
-    dataset_test = Path("/home/ubuntu/miniF2F/dataset/test")
-    dataset_valid = Path("/home/ubuntu/miniF2F/dataset/valid")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+TRACES_DIR = REPO_ROOT / "traces"
+RESULTS_DIR = REPO_ROOT / "results"
+DATASET_TEST = REPO_ROOT / "dataset" / "test"
+DATASET_VALID = REPO_ROOT / "dataset" / "valid"
 
-    total_test_problems = len(list(dataset_test.glob("*.dfy")))
-    total_valid_problems = len(list(dataset_valid.glob("*.dfy")))
+
+def get_stats():
+    total_test_problems = len(list(DATASET_TEST.glob("*.dfy")))
+    total_valid_problems = len(list(DATASET_VALID.glob("*.dfy")))
     
     # Load baseline
     test_baseline = 0
     valid_baseline = 0
     
-    baseline_test_file = results_dir / "dafny" / "test" / "results.json"
+    baseline_test_file = RESULTS_DIR / "dafny" / "test" / "results.json"
     if baseline_test_file.exists():
         try:
             with open(baseline_test_file) as f:
@@ -33,7 +34,7 @@ def get_stats():
         except:
             pass
     
-    baseline_valid_file = results_dir / "dafny" / "valid" / "results.json"
+    baseline_valid_file = RESULTS_DIR / "dafny" / "valid" / "results.json"
     if baseline_valid_file.exists():
         try:
             with open(baseline_valid_file) as f:
@@ -42,11 +43,14 @@ def get_stats():
         except:
             pass
 
-    models = sorted([d.name for d in traces_dir.iterdir() if d.is_dir()])
+    if not TRACES_DIR.exists():
+        return [], test_baseline, valid_baseline, total_test_problems, total_valid_problems
+
+    models = sorted([d.name for d in TRACES_DIR.iterdir() if d.is_dir()])
     
     stats = []
     for model_name in models:
-        model_dir = traces_dir / model_name
+        model_dir = TRACES_DIR / model_name
         
         test_problems = set()
         test_solved = set()
@@ -94,16 +98,19 @@ def get_stats():
             "valid_total": total_valid_problems - valid_baseline
         })
     
-    return stats, test_baseline, valid_baseline
+    return stats, test_baseline, valid_baseline, total_test_problems, total_valid_problems
 
 def display_dashboard():
     while True:
         clear_screen()
-        stats, test_baseline, valid_baseline = get_stats()
+        stats, test_baseline, valid_baseline, total_test_problems, total_valid_problems = get_stats()
         
         print(f"{'='*120}")
         print(f"MINIF2F EVALUATION DASHBOARD - {time.strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"Baseline solved: Test={test_baseline}/244, Valid={valid_baseline}/243")
+        print(
+            f"Baseline solved: Test={test_baseline}/{total_test_problems}, "
+            f"Valid={valid_baseline}/{total_valid_problems}"
+        )
         print(f"{'='*120}")
         print(f"{'Model':<50} {'Test Solved':>15} {'Test Progress':>18} {'Valid Solved':>15} {'Valid Progress':>18}")
         print(f"{'='*120}")

@@ -1,11 +1,27 @@
 #!/usr/bin/env python3
 import json
 from pathlib import Path
-from collections import defaultdict
 
-traces_dir = Path("traces")
-baseline = 99
-total_test = 244
+REPO_ROOT = Path(__file__).resolve().parents[2]
+traces_dir = REPO_ROOT / "traces"
+dataset_test = REPO_ROOT / "dataset" / "test"
+baseline_results_file = REPO_ROOT / "results" / "dafny" / "test" / "results.json"
+
+
+def load_baseline_count() -> int:
+    if not baseline_results_file.exists():
+        return 0
+    with open(baseline_results_file) as f:
+        results = json.load(f)
+    return sum(
+        1
+        for item in results
+        if item.get("attempt") == 1 and item.get("status") == "verified"
+    )
+
+
+baseline = load_baseline_count()
+total_test = len(list(dataset_test.glob("*.dfy")))
 
 models = [
     "deepseek.v3-v1:0",
@@ -160,4 +176,7 @@ print("\\end{tabular}")
 print("\\caption{Extrapolated evaluation results on miniF2F-test (\\%).}")
 print("\\label{tab:minif2f-test-results}")
 print("\\end{table}")
-print("\\footnotetext[1]{Pass@N indicates projected pass rate with up to N generation attempts. \\#Prob includes 99 baseline problems solved by Dafny verifier.}")
+print(
+    f"\\footnotetext[1]{{Pass@N indicates projected pass rate with up to N generation attempts. "
+    f"\\#Prob includes {baseline} baseline problems solved by the Dafny verifier.}}"
+)

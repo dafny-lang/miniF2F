@@ -9,21 +9,22 @@ include "definitions.dfy"
     ensures w == Complex.mul(of_real(Real.exp(z.re)), Complex(Real.cos(z.im), Real.sin(z.im)))
 
   predicate {:axiom} pos (x : real)
-    ensures x > 0.0
+    ensures pos(x) <==> x > 0.0
 
   predicate {:axiom} eventually_within_eps(f: nat -> real, L: real, eps: real, N : nat)
-    ensures forall n: nat :: n >= N ==> abs(f(n) - L) < eps
+    ensures eventually_within_eps(f, L, eps, N) <==> (forall n: nat :: n >= N ==> abs(f(n) - L) < eps)
 
   predicate {:axiom} limit(f: nat -> real, L: real)
-    ensures forall eps: real :: pos(eps) ==> forall N : nat ::  eventually_within_eps(f, L, eps, N)
+    ensures limit(f, L) <==> (forall eps: real :: pos(eps) ==> forall N: nat :: eventually_within_eps(f, L, eps, N))
 
   predicate {:axiom} continuous_at(f: real -> real, a: real)
-    ensures forall eps: real | pos(eps) ::
-    exists delta: real | pos(delta) ::
-      forall x: real | abs(x - a) < delta :: abs(f(x) - f(a)) < eps
+    ensures continuous_at(f, a) <==>
+      (forall eps: real | pos(eps) ::
+        exists delta: real | pos(delta) ::
+          forall x: real :: abs(x - a) < delta ==> abs(f(x) - f(a)) < eps)
 
   predicate {:axiom} continuous(f: real -> real)
-    ensures forall a: real :: continuous_at(f, a)
+    ensures continuous(f) <==> (forall a: real :: continuous_at(f, a))
 
 
   function e_seq(n: nat): real
